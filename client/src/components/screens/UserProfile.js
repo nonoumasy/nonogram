@@ -100,26 +100,24 @@ const Profile = () => {
     return (
         <>
             { userProfile ?
-                <div style={{ maxWidth: "65%", margin: "0px auto" }}>
+                <div style={{ maxWidth: "50%", margin: "50px auto"}}>
+
                     <div style={{
                         display: "flex",
+                        flexDirection: 'row',
                         justifyContent: "space-around",
-                        margin: "18px 0px"
+                        alignItems: 'center',
+                        flexWrap: 'wrap'
                     }}>
+
                         <div>
-                            <img style={{ width: "160px", height: "160px", borderRadius: "80px", objectFit: 'cover' }}
+                            <img style={{ width: "160px", height: "160px", borderRadius: "80px", objectFit: 'cover', marginBottom: '50px' }}
                             src={userProfile.user.pic}
                             alt=''
                             />
+                            
                         </div>
                         <div>
-                            <h4>{userProfile.user.name}</h4>
-                            <h5>{userProfile.user.email}</h5>
-                            <div style={{ display: "flex", justifyContent: "space-between", width: "108%" }}>
-                                <h6>{userProfile.posts.length} posts</h6>
-                                <h6>{userProfile.user.followers.length} followers</h6>
-                                <h6>{userProfile.user.following.length} following</h6>
-                            </div>
                             {showfollow ?
                                 <button style={{
                                     margin: "10px"
@@ -127,7 +125,7 @@ const Profile = () => {
                                     onClick={() => followUser()}
                                 >
                                     Follow
-                    </button>
+                                </button>
                                 :
                                 <button
                                     style={{
@@ -137,13 +135,19 @@ const Profile = () => {
                                     onClick={() => unfollowUser()}
                                 >
                                     UnFollow
-                    </button>
+                                </button>
                             }
-
-
-
                         </div>
+                        <div>
+                            <h4>{userProfile.user.name}</h4>
+                            <h5>{userProfile.user.email}</h5>
+                            <div style={{ display: "flex", justifyContent: "space-between"}}>
+                                <h6>{userProfile.posts.length} posts</h6>
+                                <h6>{userProfile.user.followers.length} followers</h6>
+                                <h6>{userProfile.user.following.length} following</h6>
+                            </div>
                     </div>
+                </div>
                     
                     <Grid
                         container

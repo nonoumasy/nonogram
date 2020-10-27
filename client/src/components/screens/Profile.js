@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     gridContainer: {
     },
     media: {
-        height: 0,
+        height: 240,
         paddingTop: '60%'
     }
 });
@@ -78,25 +78,26 @@ const Profile = () => {
 
     return (
         <>
-            <div style={{ maxWidth: "65%", margin: "0px auto" }}>
-                {/* top */}
-                <div style={{ margin: "2rem 0" }}>
-                    
-                    <div style={{ display: "flex", justifyContent: "space-around" }}>
-                        <div>
-                            <img style={{ width: "120px", height: "120px", borderRadius: "80px", objectFit: 'cover' }}
-                                src={state ? state.pic : "loading"}
-                                alt='' />
-                        </div>
+            <div style={{ maxWidth: "50%", margin: "50px auto" }}>
 
-                        <div>
-                            <h4>{state ? state.name : "loading"}</h4>
-                            <h5>{state ? state.email : "loading"}</h5>
-                            <div style={{ display: "flex", justifyContent: "space-between", width: "108%" }}>
-                                <h6>{mypics.length} posts</h6>
-                                <h6>{state ? state.followers.length : "0"} followers</h6>
-                                <h6>{state ? state.following.length : "0"} following</h6>
-                            </div>
+                <div style={{ 
+                    display: "flex", 
+                    flexDirection: 'row', 
+                    justifyContent: "space-around",
+                    flexWrap: 'wrap'
+                    }}>
+                    <div>
+                        <img style={{ width: "160px", height: "160px", borderRadius: "80px", objectFit: 'cover' }}
+                            src={state ? state.pic : "loading"}
+                            alt='' />
+                    </div>
+                    <div>
+                        <h4>{state ? state.name : "loading"}</h4>
+                        <h5>{state ? state.email : "loading"}</h5>
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <h6>{mypics.length} posts</h6>
+                            <h6>{state ? state.followers.length : "0"} followers</h6>
+                            <h6>{state ? state.following.length : "0"} following</h6>
                         </div>
                     </div>
                 </div>
