@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Navbar = props =>  {
+
     const { history } = props
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -74,7 +75,7 @@ const Navbar = props =>  {
             id: 5,
             menuTitle: 'Logout',
             handleClick: () => handleMenuLogout(),
-        },
+        }
     ]
 
     const isLoggedOutMenu = [
@@ -96,7 +97,7 @@ const Navbar = props =>  {
         <Component key={id} onClick={handleClick}>
             {menuTitle}
         </Component>
-    );
+    ))
 
     return (
         <div className={classes.root}>
@@ -151,7 +152,7 @@ const Navbar = props =>  {
             </AppBar>
             <Toolbar />
         </div>
-    );
+    )
 }
 
 export default withRouter(Navbar)
