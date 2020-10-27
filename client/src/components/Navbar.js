@@ -48,10 +48,6 @@ const Navbar = props =>  {
         setAnchorEl(null);
     };
 
-    const handleButtonClick = (pageURL) => {
-        history.push(pageURL)
-    };
-
     const handleMenuLogout = () => {
         localStorage.clear()
         dispatch({ type: "CLEAR" })
@@ -62,90 +58,45 @@ const Navbar = props =>  {
         {
             id: 2,
             menuTitle: 'Add Post',
-            pageURL: '/create'
+            handleClick: () => handleMenuClick('/create'),
         },
         {
             id: 3,
             menuTitle: 'Profile',
-            pageURL: '/profile'
+            handleClick: () => handleMenuClick('/profile'),
         },
         {
             id: 4,
             menuTitle: 'Following',
-            pageURL: '/myfollowingpost'
-        }
+            handleClick: () => handleMenuClick('/myfollowingpost'),
+        },
+        {
+            id: 5,
+            menuTitle: 'Logout',
+            handleClick: () => handleMenuLogout(),
+        },
     ]
 
     const isLoggedOutMenu = [
         {
             id: 1,
             menuTitle: 'Login',
-            pageURL: '/login'
+            handleClick: () => handleMenuClick('/login'),
         },
         {
             id: 2,
             menuTitle: 'Signup',
-            pageURL: '/signup'
+            handleClick: () => handleMenuClick('/signup'),
         }
     ]
-
-    const renderMenu = () => {
-        if (state) {
-            return [
-                isLoggedInMenu.map(menuItem => {
-                    const { id, menuTitle, pageURL } = menuItem;
-                    return (
-                        <MenuItem key={id} onClick={() => handleMenuClick(pageURL)}>
-                            {menuTitle}
-                        </MenuItem>
-                    );
-
-                }),
-                < MenuItem onClick={() => handleMenuLogout()}> Logout</ MenuItem >
-            ]
-        } else {
-            return [
-                isLoggedOutMenu.map(menuItem => {
-                    const { id, menuTitle, pageURL } = menuItem;
-                    return (
-                        <MenuItem key={id} onClick={() => handleMenuClick(pageURL)}>
-                            {menuTitle}
-                        </MenuItem>
-                    );
-                })
-            ]
-        }
-        
-    }
-
-    const renderButton = () => {
-        if (state) {
-            return [
-                isLoggedInMenu.map(menuItem => {
-                    const { id, menuTitle, pageURL } = menuItem;
-                    return (
-                        <Button key={id} onClick={() => handleButtonClick(pageURL)}>
-                            {menuTitle}
-                        </Button>
-                    );
-
-                }),
-                <Button Button onClick={() => handleMenuLogout()}> Logout</Button >
-            ]
-        } else {
-            return [
-                isLoggedOutMenu.map(menuItem => {
-                    const { id, menuTitle, pageURL } = menuItem;
-                    return (
-                        <Button key={id} onClick={() => handleButtonClick(pageURL)}>
-                            {menuTitle}
-                        </Button>
-                    );
-                })
-            ]
-        }
-    }
     
+    const menuItems = state ? isLoggedInMenu : isLoggedOutMenu
+
+    const renderMenu = (Component = MenuItem) => menuItems.map(({ id, menuTitle, handleClick }) => (
+        <Component key={id} onClick={handleClick}>
+            {menuTitle}
+        </Component>
+    );
 
     return (
         <div className={classes.root}>
@@ -191,7 +142,7 @@ const Navbar = props =>  {
                         </>
                         ) : (
                             <>
-                                {renderButton()}
+                                {renderMenu(Button)}
                             </>
                             
                         )}
