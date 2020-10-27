@@ -108,47 +108,48 @@ const Profile = () => {
                         flexDirection: 'row',
                         justifyContent: "space-around",
                         alignItems: 'center',
-                        flexWrap: 'wrap'
+                        flexWrap: 'wrap',
+                        marginBottom: '40px'
                     }}>
 
                         <div>
-                            <img style={{ width: "160px", height: "160px", borderRadius: "80px", objectFit: 'cover', marginBottom: '50px' }}
+                            <img style={{ width: "160px", height: "160px", borderRadius: "80px", objectFit: 'cover'}}
                             src={userProfile.user.pic}
                             alt=''
                             />
                             
                         </div>
-                        <div>
-                            {showfollow ?
-                                <button style={{
-                                    margin: "10px"
-                                }} className="btn waves-effect waves-light #64b5f6 blue darken-1"
-                                    onClick={() => followUser()}
-                                >
-                                    Follow
-                                </button>
-                                :
-                                <button
-                                    style={{
-                                        margin: "10px"
-                                    }}
-                                    className="btn waves-effect waves-light #64b5f6 blue darken-1"
-                                    onClick={() => unfollowUser()}
-                                >
-                                    UnFollow
-                                </button>
-                            }
-                        </div>
+
                         <div>
                             <h4>{userProfile.user.name}</h4>
                             <h5>{userProfile.user.email}</h5>
-                            <div style={{ display: "flex", justifyContent: "space-between"}}>
+                            <div style={{ 
+                                display: "flex", 
+                                justifyContent: "space-between"
+                                }}>
                                 <h6>{userProfile.posts.length} posts</h6>
                                 <h6>{userProfile.user.followers.length} followers</h6>
                                 <h6>{userProfile.user.following.length} following</h6>
                             </div>
+                            <div style={{margin: '16px 0'}}>
+                                    {showfollow ?
+                                        <button className="btn waves-effect waves-light"
+                                            onClick={() => followUser()}
+                                        >
+                                            Follow
+                                        </button>
+                                        :
+                                        <button
+                                            className="btn waves-effect waves-light"
+                                            onClick={() => unfollowUser()}
+                                        >
+                                            UnFollow
+                                        </button>
+                                    }
+                            </div>
+                        </div>
+
                     </div>
-                </div>
                     
                     <Grid
                         container

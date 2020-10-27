@@ -128,7 +128,7 @@ const Home = () => {
 
     return (
         <>
-            <div className='home'>
+            <div className='profile-container'>
                 {
                     data.map(item => {
                         return (
