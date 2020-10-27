@@ -78,7 +78,7 @@ const Profile = () => {
 
     return (
         <>
-            <div style={{ maxWidth: "50%", margin: "50px auto" }}>
+            <div className='profile-container'>
 
                 <div style={{ 
                     display: "flex", 
@@ -132,8 +132,8 @@ const Profile = () => {
                     })
                     } 
                 </Grid>
-                <Footer/>
             </div>
+            <Footer />
         </>
     )
 }

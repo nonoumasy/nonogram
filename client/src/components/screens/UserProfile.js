@@ -7,6 +7,8 @@ import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import CardMedia from '@material-ui/core/CardMedia';
 
+import '../../App.css'
+
 const useStyles = makeStyles({
     gridContainer: {
     },
@@ -15,8 +17,6 @@ const useStyles = makeStyles({
         paddingTop: '60%'
     }
 });
-
-
 
 const Profile = () => {
     const classes = useStyles();
@@ -100,7 +100,8 @@ const Profile = () => {
     return (
         <>
             { userProfile ?
-                <div style={{ maxWidth: "50%", margin: "50px auto"}}>
+                <>
+                <div className='profile-container'>
 
                     <div style={{
                         display: "flex",
@@ -169,9 +170,10 @@ const Profile = () => {
                         })
                         }
                     </Grid>
-                    <Footer />
+                    
                 </div>
-
+                    <Footer /> 
+                </>
 
                 : <h2>loading...!</h2>}
 
