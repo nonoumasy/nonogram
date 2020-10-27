@@ -4,7 +4,7 @@ import M from 'materialize-css'
 
 const Reset = () => {
 
-    const history = useHistory()
+    const history = useHistory()    
     const [email, setEmail] = useState('')
 
     const postData = () => {

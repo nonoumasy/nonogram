@@ -73,10 +73,6 @@ h2 {
   font-size: 1.5rem;
 }
 
-.card {
-  border-radius: 4px;
-}
-
 .card_top {
   display: flex;
   justify-content: space-between;

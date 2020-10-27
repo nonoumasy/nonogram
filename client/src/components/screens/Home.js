@@ -2,7 +2,13 @@ import React, {useState, useEffect, useContext} from 'react'
 import { UserContext } from '../../App'
 import {Link} from 'react-router-dom'
 import Footer from './Footer'
-
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
+import { makeStyles } from '@material-ui/core/styles';
 
 import '../../App.css'
 
@@ -126,8 +132,9 @@ const Home = () => {
                 {
                     data.map(item => {
                         return (
+                            <>
+                        
                             <div className='card home-card' key={item._id}>
-                                
                                 <div className='card_top'>
                                     
                                     <div className='flex'>
@@ -176,15 +183,16 @@ const Home = () => {
                                 </div>
                                 
                             </div>
-
+                            </>
+                            
                         )
                     })
                 }
             </div>
             <Footer />
         </>
-
         
+
     )
 }
 

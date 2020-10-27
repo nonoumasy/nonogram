@@ -1,10 +1,25 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { UserContext } from '../../App'
 import { useParams } from 'react-router-dom'
+import Footer from './Footer'
+import Card from '@material-ui/core/Card';
+import { Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import CardMedia from '@material-ui/core/CardMedia';
+
+const useStyles = makeStyles({
+    gridContainer: {
+    },
+    media: {
+        height: 0,
+        paddingTop: '60%'
+    }
+});
 
 
 
 const Profile = () => {
+    const classes = useStyles();
     const [userProfile, setUserProfile] = useState(null)
     const { state, dispatch } = useContext(UserContext)
     const { userid } = useParams()
@@ -129,18 +144,28 @@ const Profile = () => {
 
                         </div>
                     </div>
+                    
+                    <Grid
+                        container
+                        spacing={2}
+                        className={classes.gridContainer}
+                        justify='start'>
 
-                    <div className="gallery">
-                        {
-                            userProfile.posts.map(item => {
-                                return (
-                                    <img key={item._id} className="item" src={item.image} alt={item.title} />
-                                )
-                            })
+                        {userProfile.posts.map(item => {
+                            return (
+                                <Grid item xs={12} sm={6} md={4}>
+                                    <Card >
+                                        <CardMedia
+                                            className={classes.media}
+                                            image={item.image}
+                                        />
+                                    </Card>
+                                </Grid>
+                            )
+                        })
                         }
-
-
-                    </div>
+                    </Grid>
+                    <Footer />
                 </div>
 
 

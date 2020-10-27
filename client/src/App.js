@@ -13,8 +13,6 @@ import {reducer, initialState} from './reducers/userReducer'
 import Reset from './components/screens/Reset';
 import NewPassword from './components/screens/NewPassword';
 
-
-
 export const UserContext = createContext()
 
 function App() {
