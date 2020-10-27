@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     gridContainer: {
     },
     media: {
-        height: 0,
+        height: 240,
         paddingTop: '60%'
     }
 });
