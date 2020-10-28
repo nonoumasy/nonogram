@@ -19,7 +19,7 @@ import '../../App.css'
 const useStyles = makeStyles((theme) => ({
     dialog: {
         maxWidth: 400,
-        margin: '0px auto',
+        margin: '10px auto',
         padding: '30px'
     },
     margin: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CreatePost = () => {
     const classes = useStyles()
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const history = useHistory()
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
