@@ -1,20 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import { useHistory } from 'react-router-dom'
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import M from 'materialize-css'
 
 import '../../App.css'
 
-const useStyles = makeStyles((theme) => ({
-    button: {
-    },
-}));
-
-
 const CreatePost = () => {
-    const classes = useStyles()
     const history = useHistory()
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
@@ -51,7 +41,7 @@ const CreatePost = () => {
         }
     }, [url])
 
-    const postDetailsHandler = () => {
+    const postDetails = () => {
         const data = new FormData()
         data.append('file', image)
         data.append('upload_preset', 'nonogram')
@@ -95,15 +85,12 @@ const CreatePost = () => {
                     <input className="file-path validate" type="text" placeholder='Add image.' />
                 </div>
             </div>
-            <Button
-                variant="contained"
-                color="default"
-                className={classes.button}
-                startIcon={<CloudUploadIcon/>}
-                onClick={postDetailsHandler}
+            <button
+                className="btn waves-effect waves-light"
+                onClick={() => postDetails()}
             >
                 Submit Post
-            </Button>
+            </button>
 
         </div>
         )

@@ -2,7 +2,11 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
+const User = require('./models/user')
+const Post = require('./models/post')
 require('dotenv').config()
+
+//
 const PORT = process.env.PORT || 5000
 
 // connect to database
@@ -17,10 +21,6 @@ mongoose.connect(
 )
     .then(() => console.log('mongodb connected'))
     .catch(err => console.log(err))
-
-// import models
-const User = require('./models/user')
-const Post = require('./models/post')
 
 // middleware
 app.use(cors())
