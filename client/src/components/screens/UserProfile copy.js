@@ -6,8 +6,6 @@ import Card from '@material-ui/core/Card';
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 
 import '../../App.css'
 
@@ -123,47 +121,34 @@ const Profile = () => {
                         </div>
 
                         <div>
-                            <Typography variant='h4'>
-                                {userProfile.user.name}
-                            </Typography>
-                            <Typography variant='h6'>
-                                    {userProfile.user.email}
-                            </Typography>
-                            
+                            <h4>{userProfile.user.name}</h4>
+                            <h5>{userProfile.user.email}</h5>
                             <div style={{ 
                                 display: "flex", 
                                 justifyContent: "space-between"
                                 }}>
-                                    <Typography variant='body'>
-                                        {userProfile.posts.length} posts  
-                                    </Typography>
-                                    <Typography variant='body'>
-                                        {userProfile.user.followers.length} followers  
-                                    </Typography>
-                                    <Typography variant='body'>
-                                        {userProfile.user.following.length} following  
-                                    </Typography>
+                                <h6>{userProfile.posts.length} posts</h6>
+                                <h6>{userProfile.user.followers.length} followers</h6>
+                                <h6>{userProfile.user.following.length} following</h6>
                             </div>
                             <div style={{margin: '16px 0'}}>
                                     {showfollow ?
-                                        <Button 
+                                        <button className="btn waves-effect waves-light"
                                             onClick={() => followUser()}
-                                            variant='contained'
-                                            disableElevation
-                                            >
+                                        >
                                             Follow
-                                        </Button>
+                                        </button>
                                         :
-                                        <Button 
+                                        <button
+                                            className="btn waves-effect waves-light"
                                             onClick={() => unfollowUser()}
-                                            variant='contained'
-                                            disableElevation
-                                            >
+                                        >
                                             UnFollow
-                                        </Button>
+                                        </button>
                                     }
                             </div>
-                        </div>  
+                        </div>
+
                     </div>
                     
                     <Grid

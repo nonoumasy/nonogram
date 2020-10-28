@@ -26,12 +26,11 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     headerOptions: {
-
     }
 }));
 
 const Navbar = props =>  {
-
+    const [darkMode, setDarkMode] = useState(false)
     const { history } = props
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -100,6 +99,7 @@ const Navbar = props =>  {
     ))
 
     return (
+
         <div className={classes.root}>
             <Scroll showBelow={300} />
             <AppBar position="fixed" color='default' >
@@ -108,38 +108,43 @@ const Navbar = props =>  {
                         <Link 
                         href="/"
                         style={{textDecoration: 'none'}}
-                        >▲⚬▲⚬</Link>
+                        >
+                            <Typography >
+                                ▲⚬▲⚬
+                            </Typography>
+                        </Link>
                     </Typography>
+                
                     <div>
-                        { isMobile ? (   
-                            <>
-                                <IconButton 
-                                    edge="start" 
-                                    className={classes.menuButton} 
-                                    color="inherit" 
-                                    aria-label="menu"
-                                    onClick={handleMenu}>
-                                    <MenuIcon />
-                                </IconButton>
+                        {isMobile ? (
+                        <>
+                            <IconButton 
+                                edge="start" 
+                                className={classes.menuButton} 
+                                color="inherit" 
+                                aria-label="menu"
+                                onClick={handleMenu}>
+                                <MenuIcon />
+                            </IconButton>
 
-                                <Menu
-                                    id="menu-appbar"
-                                    anchorEl={anchorEl}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    keepMounted
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    open={open}
-                                    onClose={() => setAnchorEl(null)}
-                                >
-                                    {renderMenu()}
-                                
-                                </Menu>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={open}
+                                onClose={() => setAnchorEl(null)}
+                            >
+                                {renderMenu()}
+                            
+                            </Menu>
                         </>
                         ) : (
                             <>
@@ -150,9 +155,10 @@ const Navbar = props =>  {
                     </div>
                 </Toolbar>
             </AppBar>
-            <Toolbar />
+            <Toolbar/>
         </div>
     )
-}
+}  
+
 
 export default withRouter(Navbar)

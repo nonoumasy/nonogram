@@ -3,7 +3,34 @@ import { Link, useHistory } from 'react-router-dom'
 import M from 'materialize-css'
 import { UserContext} from '../../App'
 
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper'
+import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions'
+import Button from '@material-ui/core/Button'
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import PersonIcon from '@material-ui/icons/Person';
+import LockIcon from '@material-ui/icons/Lock';
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        maxWidth: 400,
+        margin: '30px auto'
+    }, 
+    margin: {
+        // margin: theme.spacing(2),
+        
+    },
+}))
+
 const Login = () => {
+    const classes = useStyles();
     const {state, dispatch} = useContext(UserContext)
 
     const history = useHistory()
@@ -39,40 +66,54 @@ const Login = () => {
             .catch(err => console.log(err))
     }
 
-    
-
     return (
-        <div className='mycard'>
-            <div className="card auth-card">
-                <h2>Nonogram</h2>
-                <input
-                    type="text"
-                    placeholder='email'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <input
-                    type="password"
-                    placeholder='password'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <button
-                    className="btn waves-effect waves-light"
-                    onClick={() => postData()}
+
+        <Paper className={classes.root}>
+            <Typography variant='h2' align="center">
+                Nonogram
+            </Typography>
+
+            <TextField
+                className={classes.margin}
+                type='email'
+                placeholder='Email'
+                fullWidth
+                onChange={(e) => setEmail(e.target.value)}
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <PersonIcon fontSize='small'/>
+                        </InputAdornment>
+                    ),
+                }}
+            />
+            <TextField
+                className={classes.margin}
+                fullWidth
+                type='password'
+                placeholder='Password'
+                onChange={(e) => setPassword(e.target.value)}
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <LockIcon fontSize='small'/>
+                        </InputAdornment>
+                    ),
+                }}
+            />
+            <Button 
+                variant='contained'  
+                onClick={() => postData()}
+                disableElevation
                 >
-                    Login
-                </button>
-                <h6>
-                    <Link to='Signup'> Don't have an account?</Link>
-                </h6>
-                <div>
-                    <Link to="/reset">Forgot password?</Link>
-                </div>
+                Login
+            </Button>
+            <Typography align='center'>
+                <Link to='Signup'>Don't have an account?</Link>
+            </Typography>
+            
+        </Paper>
 
-
-            </div>
-        </div>
     )
 }
 

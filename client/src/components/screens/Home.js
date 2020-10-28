@@ -18,7 +18,7 @@ import TextField from '@material-ui/core/TextField';
 
 import '../../App.css'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 600,
         margin: '30px auto'
@@ -27,8 +27,13 @@ const useStyles = makeStyles({
         height: 220,
         paddingTop: '56.25%',
         objectFit: 'cover'
-    }
-})
+    },
+    small: {
+        width: theme.spacing(3),
+        height: theme.spacing(3),
+    },
+}))
+
 
 const Home = ({props}) => {
     const classes = useStyles()
@@ -152,9 +157,9 @@ const Home = ({props}) => {
                             <>
                                 <Card className={classes.root}>
                                     <CardHeader
-                                        avatar={<Avatar alt="" src={item.postedBy.pic} />}
+                                        avatar={<Avatar alt="" src={item.postedBy.pic} className={classes.small} />}
                                         title={
-                                            <Typography variant='h6'>
+                                            <Typography variant='h5'>
                                                 <Link style={{ textDecoration: 'none' }} to={item.postedBy._id !== state._id ? "/profile/" + item.postedBy._id : "/profile"}>
                                                     {item.postedBy.name}
                                                 </Link>
@@ -171,7 +176,7 @@ const Home = ({props}) => {
                                         image={item.image}
                                     />
                                     <CardContent>
-                                        <IconButton component="h3">
+                                        <IconButton variant="h5">
                                             {item.likes.includes(state._id)
                                                 ?
                                                 <ThumbDown onClick={() => unlikePostHandler(item._id)} />
@@ -181,8 +186,8 @@ const Home = ({props}) => {
                                         </IconButton>
                                         <Typography>
                                             {item.likes.length} likes
-                                    </Typography>
-                                        <Typography variant="h6">
+                                        </Typography>
+                                        <Typography variant="h5">
                                             {item.title}
                                         </Typography>
                                         <Typography>
@@ -207,8 +212,7 @@ const Home = ({props}) => {
                                             e.target[0].value = ''
                                         }}>
                                             <TextField
-                                                id="standard-secondary"
-                                                color="success"
+                                                id="standard-full-width"
                                                 label="Comment"
                                                 placeholder='Add a comment'
                                                 fullWidth />

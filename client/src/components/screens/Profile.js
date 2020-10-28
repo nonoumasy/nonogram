@@ -5,7 +5,8 @@ import Card from '@material-ui/core/Card';
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
 
 import '../../App.css'
 
@@ -85,6 +86,7 @@ const Profile = () => {
                     display: "flex", 
                     flexDirection: 'row', 
                     justifyContent: "space-around",
+                    alignItems:"center",
                     flexWrap: 'wrap',
                     marginBottom: '2rem'
                     }}>
@@ -98,15 +100,25 @@ const Profile = () => {
 
                     </div>
                     <div>
-                        <h4>{state ? state.name : "loading"}</h4>
-                        <h5>{state ? state.email : "loading"}</h5>
+                        <Typography variant='h4'>    
+                            {state ? state.name : "loading"}
+                        </Typography>
+                        <Typography variant='h6'>    
+                            {state ? state.email : "loading"}
+                        </Typography>
                         <div style={{ 
                             display: "flex", 
                             justifyContent: "space-between" 
                             }}>
-                            <h6>{mypics.length} posts</h6>
-                            <h6>{state ? state.followers.length : "0"} followers</h6>
-                            <h6>{state ? state.following.length : "0"} following</h6>
+                            <Typography variant='body'>
+                                {mypics.length} posts
+                            </Typography>
+                            <Typography variant='body'>
+                                {state ? state.followers.length : "0"} followers
+                            </Typography>
+                            <Typography variant='body'>
+                                {state ? state.following.length : "0"} following
+                            </Typography>
                         </div>
                     </div>
                 </div>

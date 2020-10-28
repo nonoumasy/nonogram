@@ -1,20 +1,38 @@
 import React, {useState, useEffect} from 'react'
 import { useHistory } from 'react-router-dom'
-import Button from '@material-ui/core/Button';
+
 import { makeStyles } from '@material-ui/core/styles';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import Card from '@material-ui/core/Card';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 import M from 'materialize-css'
 
 import '../../App.css'
 
 const useStyles = makeStyles((theme) => ({
-    button: {
+    root: {
+        maxWidth: 400,
+        margin: '30px auto'
     },
-}));
-
+    margin: {
+        margin: theme.spacing(2),
+        padding: '0 30px'
+    },
+    input: {
+        display: 'none',
+    },
+}))
 
 const CreatePost = () => {
     const classes = useStyles()
+    const [open, setOpen] = React.useState(false);
     const history = useHistory()
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
@@ -67,45 +85,74 @@ const CreatePost = () => {
             .then(data => setUrl(data.url))
             .catch(err => console.log(err))
     }
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
         
     return (
-        <div className='card input-file'>
-            <input 
-            type="text" 
-            placeholder='title'
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            />
-            <input 
-            type="text" 
-            placeholder='body' 
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-            />
-
-            <div className="file-field input-field">
-                <div className="btn">
-                    <span>Upload Image</span>
-                    <input 
-                    type="file"
-                    onChange={(e) => setImage(e.target.files[0])}
-                    />
-                </div>
-                <div className="file-path-wrapper">
-                    <input className="file-path validate" type="text" placeholder='Add image.' />
-                </div>
-            </div>
-            <Button
-                variant="contained"
-                color="default"
-                className={classes.button}
-                startIcon={<CloudUploadIcon/>}
-                onClick={postDetailsHandler}
-            >
-                Submit Post
+        <>
+            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                Add Post
             </Button>
-
-        </div>
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Add Post</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="title"
+                        label="Title"
+                        type="text"
+                        fullWidth
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="body"
+                        label="Body"
+                        type="text"
+                        fullWidth
+                    />
+                    <DialogActions>
+                        <input
+                            accept="image/*"
+                            className={classes.input}
+                            id="contained-button-file"
+                            type="file"
+                        />
+                        <label htmlFor="contained-button-file">
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                component="span"
+                                onChange={(e) => setImage(e.target.files[0])}
+                            >
+                                Upload Image
+                        </Button>
+                        </label>
+                    </DialogActions>
+                </DialogContent>
+                <DialogActions>
+                    <Button 
+                        onClick={handleClose}
+                        color="primary"
+                        >
+                        Cancel
+                    </Button>
+                    <Button 
+                        onClick={postDetailsHandler} 
+                        color="primary"
+                        >
+                        Post
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </>
         )
     
 }
