@@ -1,18 +1,37 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { UserContext } from '../../App'
-import {Link} from 'react-router-dom'
 import Footer from './Footer'
+import { Link } from 'react-router-dom'
+
+import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ThumbUp from '@material-ui/icons/ThumbUp';
+import ThumbDown from '@material-ui/icons/ThumbDown';
+import TextField from '@material-ui/core/TextField';
 
 import '../../App.css'
 
-const Home = () => {
+const useStyles = makeStyles({
+    root: {
+        maxWidth: 600,
+        margin: '30px auto'
+    },
+    media: {
+        height: 220,
+        paddingTop: '56.25%',
+        objectFit: 'cover'
+    }
+})
+
+const Home = ({props}) => {
+    const classes = useStyles()
     const [data, setData] = useState([])
     const {state, dispatch} = useContext(UserContext)
 
@@ -124,8 +143,6 @@ const Home = () => {
         .catch(err => console.log(err))
     }
 
-
-
     return (
         <>
             <div>
@@ -133,63 +150,81 @@ const Home = () => {
                     data.map(item => {
                         return (
                             <>
-                        
-                            <div className='card home-card' key={item._id}>
-                                <div className='card_top'>
-                                    
-                                    <div className='flex'>
-                                        <img className='avatar' src={item.postedBy.pic} alt=""/>
-                                        <div className='postedby'><Link to={item.postedBy._id !== state._id ? "/profile/" + item.postedBy._id : "/profile"}>{item.postedBy.name}</Link> </div>
-                                    </div>
-                                    <div style={{marginRight: '2rem'}}>{item.postedBy._id === state._id
-                                        && <i className="material-icons" style={{
-                                            float: "right"
-                                        }}
-                                            onClick={() => deletePostHandler(item._id)}
-                                        >delete</i>
-                                    }</div>
-                                </div>
-                                
-                                <div className='card-image'>
-                                    <img src={item.image} alt='' />
-                                </div>
-                                <div className='card-content'>
-                                    {/* <i className="material-icons">favorite_border</i> */}
-                                    {item.likes.includes(state._id)
-                                    ?
-                                        <i className="material-icons thumbs" onClick={() => unlikePostHandler(item._id)}>thumb_down</i>
-                                    :
-                                        <i className="material-icons thumbs" onClick={() => likePostHandler(item._id)}
-                                        >thumb_up</i>
-                                    }
-                                    <h6 style={{fontWeight: '700'}}>{item.likes.length} likes</h6>
-                                    <h6>{item.title}</h6>
-                                    <p>{item.body}</p>
-                                    {
-                                        item.comments.map(record => {
-                                            return (
-                                                <h6 key={record._id}><span style={{ fontWeight: "700" }}>{record.postedBy.name}</span> {record.text}</h6>
-                                            )
-                                        })
-                                    }
-                                    <form onSubmit={(e) => {
-                                        e.preventDefault()
-                                        makeCommentHandler(e.target[0].value, item._id)
-                                        e.target[0].value = ''
-                                    }}>
-                                        <input type="text" placeholder="add a comment" />
-                                    </form>
-                                
-                                </div>
-                                
-                            </div>
+                                <Card className={classes.root}>
+                                    <CardHeader
+                                        avatar={<Avatar alt="" src={item.postedBy.pic} />}
+                                        title={
+                                            <Typography variant='h6'>
+                                                <Link style={{ textDecoration: 'none' }} to={item.postedBy._id !== state._id ? "/profile/" + item.postedBy._id : "/profile"}>
+                                                    {item.postedBy.name}
+                                                </Link>
+                                            </Typography>}
+                                        action=
+                                        {
+                                            <IconButton>
+                                                {item.postedBy._id === state._id && <DeleteIcon onClick={() => deletePostHandler(item._id)} />}
+                                            </IconButton>}
+                                    />
+                                    <div style={{ marginRight: '2rem' }}></div>
+                                    <CardMedia
+                                        className={classes.media}
+                                        image={item.image}
+                                    />
+                                    <CardContent>
+                                        <IconButton component="h3">
+                                            {item.likes.includes(state._id)
+                                                ?
+                                                <ThumbDown onClick={() => unlikePostHandler(item._id)} />
+                                                :
+                                                <ThumbUp onClick={() => likePostHandler(item._id)} />
+                                            }
+                                        </IconButton>
+                                        <Typography>
+                                            {item.likes.length} likes
+                                    </Typography>
+                                        <Typography variant="h6">
+                                            {item.title}
+                                        </Typography>
+                                        <Typography>
+                                            {item.body}
+                                        </Typography>
+                                        <br></br>
+                                        {
+                                            item.comments.map(record => {
+                                                return (
+                                                    <>
+                                                        <Typography >
+                                                            <span style={{ fontWeight: '700' }}>{record.postedBy.name}</span> {record.text}
+                                                        </Typography>
+
+                                                    </>
+                                                )
+                                            })
+                                        }
+                                        <form onSubmit={(e) => {
+                                            e.preventDefault()
+                                            makeCommentHandler(e.target[0].value, item._id)
+                                            e.target[0].value = ''
+                                        }}>
+                                            <TextField
+                                                id="standard-secondary"
+                                                color="success"
+                                                label="Comment"
+                                                placeholder='Add a comment'
+                                                fullWidth />
+                                        </form>
+                                    </CardContent>
+                                </Card>
                             </>
                             
                         )
                     })
                 }
             </div>
-            <Footer />
+            <div>
+                <Footer />
+            </div>
+            
         </>
         
 
