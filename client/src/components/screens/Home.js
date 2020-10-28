@@ -21,17 +21,18 @@ import '../../App.css'
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 600,
-        margin: '30px auto'
+        margin: '30px auto',
+        paddingBottom: '10px'
     },
     media: {
-        height: 220,
-        paddingTop: '56.25%',
+        height: 600,
+        width: '100%',
         objectFit: 'cover'
     },
     small: {
         width: theme.spacing(3),
         height: theme.spacing(3),
-    },
+    }
 }))
 
 
@@ -193,7 +194,7 @@ const Home = ({props}) => {
                                         <Typography>
                                             {item.body}
                                         </Typography>
-                                        <br></br>
+                                        <br/>                                        
                                         {
                                             item.comments.map(record => {
                                                 return (
@@ -219,8 +220,7 @@ const Home = ({props}) => {
                                         </form>
                                     </CardContent>
                                 </Card>
-                            </>
-                            
+                            </>  
                         )
                     })
                 }

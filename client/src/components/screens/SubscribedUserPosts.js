@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
         margin: '30px auto'
     },
     media: {
-        height: 220,
-        paddingTop: '56.25%',
+        height: 600,
+        width: '100%',
         objectFit: 'cover'
     },
     small: {
