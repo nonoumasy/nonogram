@@ -17,9 +17,10 @@ import M from 'materialize-css'
 import '../../App.css'
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    dialog: {
         maxWidth: 400,
-        margin: '30px auto'
+        margin: '0px auto',
+        padding: '30px'
     },
     margin: {
         margin: theme.spacing(2),
@@ -38,6 +39,7 @@ const CreatePost = () => {
     const [body, setBody] = useState("")
     const [image, setImage] = useState("")
     const [url, setUrl] = useState("")
+    const [value, setValue] = useState('');
 
     useEffect(() => {
         if (url) {
@@ -94,29 +96,41 @@ const CreatePost = () => {
         setOpen(false);
     };
         
+    const handleChange = (event) => {
+        setValue(event.target.value);
+    };
+
     return (
         <>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+            <Button onClick={handleClickOpen}>
                 Add Post
             </Button>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Dialog 
+                open={open} 
+                onClose={handleClose} 
+                aria-labelledby="form-dialog-title"
+                className={classes.dialog}
+                >
                 <DialogTitle id="form-dialog-title">Add Post</DialogTitle>
                 <DialogContent>
+                    <DialogContentText>
+                        To add a post: please pick an interesting title, tell us a story, upload an image and then click on Post.
+                    </DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
                         id="title"
                         label="Title"
-                        type="text"
                         fullWidth
                     />
                     <TextField
-                        autoFocus
-                        margin="dense"
-                        id="body"
-                        label="Body"
-                        type="text"
+                        id="standard-multiline-flexible"
+                        label="Tell us a story"
+                        multiline
+                        rowsMax={4}
+                        value={value}
                         fullWidth
+                        onChange={handleChange}
                     />
                     <DialogActions>
                         <input
