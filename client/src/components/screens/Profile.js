@@ -4,6 +4,7 @@ import Footer from './Footer'
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import LinearProgress from '@material-ui/core/LinearProgress'
 
@@ -20,7 +21,10 @@ const useStyles = makeStyles( theme => ({
         border: 0,
         background: 'transparent',
         cursor: 'pointer',
-        textDecoration: 'none'
+        textDecoration: 'none',
+        overflow: 'hidden',
+        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1)',
+    
     },
     media: {
         width: '100%',
@@ -29,7 +33,11 @@ const useStyles = makeStyles( theme => ({
         margin: 0,
         padding: 0,
         borderRadius: '5px',
-        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1)'
+        transition: '0.4s',
+        '&:hover': {
+            transformOrigin: '50% 50%',
+            transform: 'scale(1.1)',
+        },
     },
     line: {
         width: '100%',
@@ -164,12 +172,12 @@ const Profile = () => {
                         return (
                         <Grid item xs={12} sm={6} md={4}>
                             <Tooltip title={item.title} arrow placement="top">
-                                <button className={classes.button}>
+                                <Button hover className={classes.button}>
                                     <img 
                                     className={classes.media} 
                                     src={item.image}
                                     onClick={() => clickImageHandler()}/> 
-                                </button>
+                                </Button>
                             </Tooltip>
                         </Grid>
                         )
