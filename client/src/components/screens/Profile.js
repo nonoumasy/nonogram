@@ -31,9 +31,9 @@ const useStyles = makeStyles({
         margin: 0,
         padding: 0,
         borderRadius: '5px',
-        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2)'
+        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1)'
     }
-})
+}) 
 
 const Profile = () => {
     const classes = useStyles();
