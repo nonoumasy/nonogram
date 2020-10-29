@@ -32,9 +32,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = props =>  {
     const [darkMode, setDarkMode] = useState(false)
+    const [anchorEl, setAnchorEl] = useState(null);
     const { history } = props
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const { state, dispatch } = useContext(UserContext)
     const theme = useTheme()
