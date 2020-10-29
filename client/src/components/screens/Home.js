@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     line: {
         width: '100%',
         '& > * + *': {
-            marginTop: theme.spacing(2),
+        marginTop: theme.spacing(2),
         },
     }
 }))
@@ -254,8 +254,8 @@ const Home = ({props}) => {
                     })
                     :
                     <div>
-                    <LinearProgress className={classes.line} />
-                </div>
+                        <LinearProgress color="primary" className={classes.line}/>
+                    </div>
                 }
             </div>
             <div>
