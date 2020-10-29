@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useHistory } from 'react-router-dom'
 import M from 'materialize-css'
+import { capitalCase } from "capital-case";
 
 import '../../App.css'
 
@@ -21,7 +22,7 @@ const CreatePost = () => {
                     "Authorization": "Bearer " + localStorage.getItem("jwt")
                 },
                 body: JSON.stringify({
-                    title,
+                    title: capitalCase(title),
                     body,
                     image: url
                 })
@@ -60,6 +61,7 @@ const CreatePost = () => {
         
     return (
         <div className='card input-file'>
+            
             <input 
             type="text" 
             placeholder='title'

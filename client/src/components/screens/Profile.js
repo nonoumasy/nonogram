@@ -5,10 +5,11 @@ import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
+import LinearProgress from '@material-ui/core/LinearProgress'
 
 import '../../App.css'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( theme => ({
     gridContainer: {
         margin: 0,
         padding: 0,
@@ -29,23 +30,36 @@ const useStyles = makeStyles({
         padding: 0,
         borderRadius: '5px',
         boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1)'
+    },
+    line: {
+        width: '100%',
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        },
     }
-}) 
+}))
 
 const Profile = () => {
     const classes = useStyles();
+    const { state, dispatch } = useContext(UserContext)
     const [mypics, setMyPics] = useState([])
-    const {state, dispatch } = useContext(UserContext)
     const [image, setImage] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
+        setIsLoading(true)
         fetch('/mypost', {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
             }
             })
             .then(res => res.json())
-            .then(result => setMyPics(result.post) )
+            .then(result => {
+                setMyPics(result.post)
+                setIsLoading(false)
+            } 
+            )
+        
     }, [])
 
     useEffect(() => {
@@ -97,8 +111,8 @@ const Profile = () => {
 
     return (
         <>
+            { !isLoading ?
             <div className='profile-container'>
-
                 <div style={{ 
                     display: "flex", 
                     flexDirection: 'row', 
@@ -145,8 +159,6 @@ const Profile = () => {
                     spacing={2}
                     className={classes.gridContainer}
                     justify='start'>
-                    
-                    {console.log('asdfsd',mypics)}
 
                     {mypics.map(item => {
                         return (
@@ -161,11 +173,18 @@ const Profile = () => {
                             </Tooltip>
                         </Grid>
                         )
-                    })
+                        })
                     } 
                 </Grid>
             </div>
-            <Footer />
+            :
+            <div>
+                <LinearProgress color="primary" className={classes.line} />
+            </div>
+            }
+            <div>
+                <Footer />
+            </div>
         </>
     )
 }

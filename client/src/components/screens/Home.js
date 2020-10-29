@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 import { UserContext } from '../../App'
 import Footer from './Footer'
 import { Link } from 'react-router-dom'
+import { capitalCase } from "capital-case";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -217,8 +218,8 @@ const Home = ({props}) => {
                                         <Typography>
                                             {item.likes.length} likes
                                         </Typography>
-                                        <Typography variant="h5">
-                                            {item.title}
+                                        <Typography variant="h6">
+                                            {capitalCase(item.title)}
                                         </Typography>
                                         <Typography>
                                             {item.body}
@@ -261,7 +262,6 @@ const Home = ({props}) => {
             <div>
                 <Footer />
             </div>
-            
         </>
         
 
