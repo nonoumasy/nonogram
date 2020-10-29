@@ -15,13 +15,15 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ThumbUp from '@material-ui/icons/ThumbUp';
 import ThumbDown from '@material-ui/icons/ThumbDown';
 import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import '../../App.css'
 
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 600,
-        margin: '30px auto'
+        margin: '30px auto',
+        paddingBottom: '10px'
     },
     media: {
         height: 600,
@@ -29,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
         objectFit: 'cover'
     },
     small: {
-        width: theme.spacing(3),
-        height: theme.spacing(3),
+        width: theme.spacing(4),
+        height: theme.spacing(4),
     },
 }))
 
@@ -158,7 +160,7 @@ const Home = () => {
                             <CardHeader
                                 avatar={<Avatar alt="" src={item.postedBy.pic} className={classes.small} />}
                                 title={
-                                    <Typography variant='h5'>
+                                    <Typography variant='h6' style={{ fontWeight: 500 }}>
                                         <Link style={{ textDecoration: 'none' }} to={item.postedBy._id !== state._id ? "/profile/" + item.postedBy._id : "/profile"}>
                                             {item.postedBy.name}
                                         </Link>
@@ -181,9 +183,14 @@ const Home = () => {
                                 <IconButton variant="h5">
                                     {item.likes.includes(state._id)
                                         ?
-                                        <ThumbDown onClick={() => unlikePostHandler(item._id)} />
+                                        <Tooltip title="unlike this" arrow placement="bottom">
+                                            <ThumbDown onClick={() => unlikePostHandler(item._id)} />
+                                        </Tooltip>
                                         :
-                                        <ThumbUp onClick={() => likePostHandler(item._id)} />
+                                        <Tooltip title="like this" arrow placement="bottom">
+                                            <ThumbUp onClick={() => likePostHandler(item._id)} />
+                                        </Tooltip>
+                                        
                                     }
                                 </IconButton>
                                 <Typography>

@@ -4,6 +4,7 @@ import Footer from './Footer'
 import { Link } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -15,6 +16,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ThumbUp from '@material-ui/icons/ThumbUp';
 import ThumbDown from '@material-ui/icons/ThumbDown';
 import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
+import LinearProgress from '@material-ui/core/LinearProgress'
 
 import '../../App.css'
 
@@ -30,8 +33,17 @@ const useStyles = makeStyles((theme) => ({
         objectFit: 'cover'
     },
     small: {
-        width: theme.spacing(3),
-        height: theme.spacing(3),
+        width: theme.spacing(4),
+        height: theme.spacing(4),
+    },
+    icon: {
+        marginTop: '15px'
+    },
+    line: {
+        width: '100%',
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        },
     }
 }))
 
@@ -40,8 +52,10 @@ const Home = ({props}) => {
     const classes = useStyles()
     const [data, setData] = useState([])
     const {state, dispatch} = useContext(UserContext)
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
+        setIsLoading(true)
         fetch('/allpost', {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem('jwt')
@@ -49,8 +63,10 @@ const Home = ({props}) => {
         })
         .then(res => res.json())
         .then(result => {
+            setIsLoading(false)
             setData(result.posts)
         })
+        
     }, [])
 
     const likePostHandler = (id) => {
@@ -152,24 +168,32 @@ const Home = ({props}) => {
     return (
         <>
             <div>
-                {
-                    data.map(item => {
+                { !isLoading ?
+                    data.map(item => { 
                         return (
                             <>
                                 <Card className={classes.root}>
                                     <CardHeader
                                         avatar={<Avatar alt="" src={item.postedBy.pic} className={classes.small} />}
                                         title={
-                                            <Typography variant='h5'>
-                                                <Link style={{ textDecoration: 'none' }} to={item.postedBy._id !== state._id ? "/profile/" + item.postedBy._id : "/profile"}>
-                                                    {item.postedBy.name}
-                                                </Link>
-                                            </Typography>}
+                                            <Typography variant='h6' style={{fontWeight: 500}}>
+                                                <Tooltip title="Go to profile" arrow placement="bottom">
+                                                    <Link style={{ textDecoration: 'none' }} to={item.postedBy._id !== state._id ? "/profile/" + item.postedBy._id : "/profile"}>
+                                                        {item.postedBy.name}
+                                                    </Link>
+                                                </Tooltip>
+                                            </Typography>
+                                            }
+                                            
                                         action=
                                         {
-                                            <IconButton>
-                                                {item.postedBy._id === state._id && <DeleteIcon onClick={() => deletePostHandler(item._id)} />}
-                                            </IconButton>}
+                                            <Tooltip title="Delete Post" arrow placement="bottom">
+                                                <IconButton className={classes.icon}>
+                                                    {item.postedBy._id === state._id && <DeleteIcon onClick={() => deletePostHandler(item._id)} />}
+                                                </IconButton>
+                                            </Tooltip>
+                                            
+                                        }
                                     />
                                     <div style={{ marginRight: '2rem' }}></div>
                                     <CardMedia
@@ -180,9 +204,14 @@ const Home = ({props}) => {
                                         <IconButton variant="h5">
                                             {item.likes.includes(state._id)
                                                 ?
-                                                <ThumbDown onClick={() => unlikePostHandler(item._id)} />
+                                                <Tooltip title="unlike this" arrow placement="bottom">
+                                                    <ThumbDown onClick={() => unlikePostHandler(item._id)} />
+                                                </Tooltip>
                                                 :
-                                                <ThumbUp onClick={() => likePostHandler(item._id)} />
+                                                <Tooltip title="like this" arrow placement="bottom">
+                                                    <ThumbUp onClick={() => likePostHandler(item._id)} />
+                                                </Tooltip>
+                                                
                                             }
                                         </IconButton>
                                         <Typography>
@@ -223,6 +252,10 @@ const Home = ({props}) => {
                             </>  
                         )
                     })
+                    :
+                    <div>
+                    <LinearProgress className={classes.line} />
+                </div>
                 }
             </div>
             <div>

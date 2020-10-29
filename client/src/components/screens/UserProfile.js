@@ -8,17 +8,25 @@ import { makeStyles } from "@material-ui/core/styles";
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import LinearProgress from '@material-ui/core/LinearProgress'
 
 import '../../App.css'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( theme => ({
     gridContainer: {
     },
     media: {
         height: 240,
         paddingTop: '60%'
+    },
+    line: {
+        width: '100%',
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        },
     }
-});
+
+}))
 
 const Profile = () => {
     const classes = useStyles();
@@ -190,8 +198,11 @@ const Profile = () => {
                 </div>
                     <Footer /> 
                 </>
-
-                : <h2>loading...!</h2>}
+                : 
+                <div>
+                    <LinearProgress className={classes.line} />
+                </div>
+                }
 
         </>
     )

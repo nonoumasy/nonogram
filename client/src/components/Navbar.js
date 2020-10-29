@@ -13,6 +13,7 @@ import {withRouter} from 'react-router-dom'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { UserContext } from '../App' 
 import Scroll from './screens/Scroll'
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -105,14 +106,14 @@ const Navbar = props =>  {
             <AppBar position="fixed" color='default' >
                 <Toolbar>
                     <Typography className={classes.title}>
-                        <Link 
-                        href="/"
-                        style={{textDecoration: 'none'}}
-                        >
-                            <Typography >
+                        <Tooltip title="NONOGRAM" arrow placement="bottom">
+                            <Link
+                                href="/"
+                                style={{ textDecoration: 'none' }}
+                            >
                                 ▲⚬▲⚬
-                            </Typography>
                         </Link>
+                        </Tooltip>
                     </Typography>
                 
                     <div>

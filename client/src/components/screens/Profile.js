@@ -1,13 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { UserContext } from '../../App'
 import Footer from './Footer'
-import Card from '@material-ui/core/Card';
-import Button from '@material-ui/core/Button';
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-
+import Tooltip from '@material-ui/core/Tooltip';
 
 import '../../App.css'
 
@@ -148,17 +145,20 @@ const Profile = () => {
                     spacing={2}
                     className={classes.gridContainer}
                     justify='start'>
+                    
+                    {console.log('asdfsd',mypics)}
 
                     {mypics.map(item => {
                         return (
                         <Grid item xs={12} sm={6} md={4}>
-                            <button className={classes.button}>
-                                <img 
-                                className={classes.media} 
-                                src={item.image}
-                                onClick={() => clickImageHandler()}/> 
-                            </button>
-
+                            <Tooltip title={item.title} arrow placement="top">
+                                <button className={classes.button}>
+                                    <img 
+                                    className={classes.media} 
+                                    src={item.image}
+                                    onClick={() => clickImageHandler()}/> 
+                                </button>
+                            </Tooltip>
                         </Grid>
                         )
                     })
