@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import { UserContext } from '../../App'
 import Footer from './Footer'
 import Card from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import CardMedia from '@material-ui/core/CardMedia';
@@ -12,12 +13,27 @@ import '../../App.css'
 
 const useStyles = makeStyles({
     gridContainer: {
+        margin: 0,
+        padding: 0,
+    },
+    button: {
+        margin: 0,
+        padding: 0,
+        border: 0,
+        background: 'transparent',
+        cursor: 'pointer',
+        textDecoration: 'none'
     },
     media: {
-        height: 240,
-        paddingTop: '60%'
+        width: '100%',
+        height: '300px',
+        objectFit: 'cover',
+        margin: 0,
+        padding: 0,
+        borderRadius: '5px',
+        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2)'
     }
-});
+})
 
 const Profile = () => {
     const classes = useStyles();
@@ -51,21 +67,21 @@ const Profile = () => {
             .then(res => res.json())
             .then(data => {
 
-                fetch('/updatepic', {
-                    method: "put",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": "Bearer " + localStorage.getItem("jwt")
-                    },
-                    body: JSON.stringify({
-                        pic: data.url
-                    })
-                    })
-                    .then(res => res.json())
-                    .then(result => {
-                        localStorage.setItem("user", JSON.stringify({ ...state, pic: result.pic }))
-                        dispatch({ type: "UPDATEPIC", payload: result.pic })
-                    })
+            fetch('/updatepic', {
+                method: "put",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("jwt")
+                },
+                body: JSON.stringify({
+                    pic: data.url
+                })
+                })
+                .then(res => res.json())
+                .then(result => {
+                    localStorage.setItem("user", JSON.stringify({ ...state, pic: result.pic }))
+                    dispatch({ type: "UPDATEPIC", payload: result.pic })
+                })
                     
             })
             .catch(err => {
@@ -76,6 +92,10 @@ const Profile = () => {
 
     const updatePhoto = (file) => {
         setImage(file)
+    }
+
+    const clickImageHandler = () => {
+        alert('image modal shows up')
     }
 
     return (
@@ -132,12 +152,13 @@ const Profile = () => {
                     {mypics.map(item => {
                         return (
                         <Grid item xs={12} sm={6} md={4}>
-                            <Card >
-                                <CardMedia 
-                                    className={classes.media}
-                                    image={item.image}
-                                    />
-                            </Card>
+                            <button className={classes.button}>
+                                <img 
+                                className={classes.media} 
+                                src={item.image}
+                                onClick={() => clickImageHandler()}/> 
+                            </button>
+
                         </Grid>
                         )
                     })
