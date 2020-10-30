@@ -4,6 +4,8 @@ import { UserContext } from '../../App'
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 
@@ -12,7 +14,7 @@ const useStyles = makeStyles( theme => ({
         margin: 0,
         padding: 0,
     },
-    button: {
+    container: {
         margin: 0,
         padding: 0,
         border: 0,
@@ -23,7 +25,7 @@ const useStyles = makeStyles( theme => ({
         boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1)',
     
     },
-    media: {
+    image: {
         width: '100%',
         height: '22rem',
         objectFit: 'cover',
@@ -35,6 +37,14 @@ const useStyles = makeStyles( theme => ({
             transformOrigin: '50% 50%',
             transform: 'scale(1.1)',
         },
+    },
+    video: {
+        width: '100%',
+        height: '22rem',
+        objectFit: 'cover',
+        margin: 0,
+        padding: 0,
+        borderRadius: '5px'
     }
 }))
 
@@ -155,15 +165,27 @@ const Profile = () => {
                     justify='start'>
 
                     {mypics.map(item => {
+                        console.log(mypics)
                         return (
+
                         <Grid item xs={12} sm={6} md={4}>
                             <Tooltip title={item.title} arrow placement="top">
-                                <Button hover className={classes.button}>
-                                    <img 
-                                    className={classes.media} 
-                                    src={item.image}
-                                    onClick={() => clickImageHandler()}/> 
-                                </Button>
+                                    <Card className={classes.container}>
+                                    {item.image.includes('video') ?
+                                        <CardMedia
+                                            component='video'
+                                            controls
+                                            className={classes.video}
+                                            image={item.image}
+                                        />
+                                        :
+                                        <CardMedia
+                                            component='img'
+                                            className={classes.image}
+                                            image={item.image}
+                                        />
+                                    }
+                                    </Card>
                             </Tooltip>
                         </Grid>
                         )
