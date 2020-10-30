@@ -27,8 +27,7 @@ const useStyles = makeStyles((theme) => ({
         margin: '30px auto'
     },
     media: {
-        height: 400,
-        width: '100%',
+        height: 'auto',
         objectFit: 'cover'
     },
     small: {
@@ -193,8 +192,8 @@ const Home = ({props}) => {
                                     />
                                     :
                                     <CardMedia
-                                        component='img'
                                         className={classes.media}
+                                        component='img'
                                         image={item.image}
                                     />
                             }
