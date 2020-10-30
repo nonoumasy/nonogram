@@ -33,10 +33,10 @@ const Login = () => {
     const history = useHistory()
     const {state, dispatch} = useContext(UserContext)
 
-    const [open, setOpen] = useState(false)
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [status, setStatusBase] = useState("");
+    const [open, setOpen] = useState(false)
 
     const postData = () => {
 

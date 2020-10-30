@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { UserContext } from '../../App'
+import AlertMassage from "./AlertMessage"
 
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -58,6 +59,8 @@ const Profile = () => {
     const { state, dispatch } = useContext(UserContext)
     const [mypics, setMyPics] = useState([])
     const [image, setImage] = useState("")
+    const [status, setStatusBase] = useState("");
+    const [open, setOpen] = useState(false)
 
     useEffect(() => {
         fetch('/mypost', {
@@ -114,10 +117,18 @@ const Profile = () => {
 
     const updatePhoto = (file) => {
         setImage(file)
+        setStatusBase({ msg: "Photo updated", key: Math.random() });
     }
 
     const clickImageHandler = () => {
         alert('image modal shows up')
+    }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
     }
 
     return (
@@ -198,6 +209,8 @@ const Profile = () => {
                         })
                     } 
                 </Grid>
+
+            {status ? <AlertMassage key={status.key} message={status.msg} /> : null}
         </>
     )
 }

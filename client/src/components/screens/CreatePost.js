@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import M from 'materialize-css'
 import { capitalCase } from "capital-case"
 import axios from 'axios'
+import AlertMassage from "./AlertMessage"
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card'
@@ -35,6 +36,8 @@ const CreatePost = () => {
     const [body, setBody] = useState("")
     const [image, setImage] = useState("")
     const [url, setUrl] = useState("")
+    const [status, setStatusBase] = useState("");
+    const [open, setOpen] = useState(false)
 
     useEffect(() => {
         if (url) {
@@ -52,19 +55,18 @@ const CreatePost = () => {
                 })
             }).then(res => res.json())
                 .then(data => {
-
                     if (data.error) {
-                        M.toast({ html: data.error})
+                        setStatusBase({ msg: "Something went wrong", key: Math.random() });
                     }
                     else {
-                        M.toast({ html: "Created post Successfully"})
+                        setStatusBase({ msg: "Created post Successfully", key: Math.random() });
                         history.push('/')
                     }
                 }).catch(err => {
                     console.log(err)
                 })
         }
-    }, [url])
+    }, [url, status])
 
     const postDetails = () => {
         const data = new FormData()
@@ -84,8 +86,14 @@ const CreatePost = () => {
                 .then(res => setUrl(res.data.secure_url))
                 .catch(err => console.log('something went wrong', err))
         }
-
     }
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    }
+
         
     return (
         <Card className={classes.root}>
@@ -128,8 +136,9 @@ const CreatePost = () => {
                 onClick={() => postDetails()}>
                 Submit Post
             </Button>
-
+            {status ? <AlertMassage key={status.key} message={status.msg} /> : null}
         </Card>
+        
         )
     
 }
