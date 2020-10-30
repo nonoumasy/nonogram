@@ -4,9 +4,32 @@ import M from 'materialize-css'
 import { capitalCase } from "capital-case"
 import axios from 'axios'
 
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+
 import '../../App.css'
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        height: 300,
+        maxWidth: 300,
+        margin: '30px auto',
+        padding: theme.spacing(6)
+    },
+    margin: {
+        // margin: theme.spacing(2),
+
+    },
+}))
+
 const CreatePost = () => {
+    const classes = useStyles()
     const history = useHistory()
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
@@ -65,43 +88,48 @@ const CreatePost = () => {
     }
         
     return (
-        <div>
-            <input 
-            type="text" 
-            placeholder='title'
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            />
-            <input 
-            type="text" 
-            placeholder='body' 
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
+        <Card className={classes.root}>
+
+            <Typography variant='h6' align="center">
+                Add Post
+            </Typography>
+
+            <TextField
+                className={classes.margin}
+                type='text'
+                placeholder='title'
+                value={title}
+                fullWidth
+                onChange={(e) => setTitle(e.target.value)}
             />
 
-            <div className="file-field input-field">
-                <div className="btn">
-                    <input 
+            <TextField
+                className={classes.margin}
+                type='text'
+                placeholder='body'
+                value={body}
+                fullWidth
+                onChange={(e) => setBody(e.target.value)}
+            />
+
+            <Button fullwidth>
+                <input
+
                     type="file"
                     accept="video/*,image/*"
-                    onChange={(e) =>{
-                        setImage(e.target.files[0])
-                        }
-                    } 
-                    />
-                </div>
-                <div className="file-path-wrapper">
-                    <input className="file-path validate" type="text" placeholder='Add image.' />
-                </div>
-            </div>
-            <button
-                className="btn waves-effect waves-light"
-                onClick={() => postDetails()}
-            >
-                Submit Post
-            </button>
+                    onChange={(e) => setImage(e.target.files[0])}
+                />
+            </Button>
 
-        </div>
+            <Button
+                variant='contained'
+                disableElevation
+                fullWidth
+                onClick={() => postDetails()}>
+                Submit Post
+            </Button>
+
+        </Card>
         )
     
 }

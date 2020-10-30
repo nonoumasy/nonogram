@@ -20,8 +20,13 @@ import LockIcon from '@material-ui/icons/Lock';
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        height: 300,
         maxWidth: 300,
-        margin: '30px auto'
+        margin: '30px auto',
+        padding: theme.spacing(6)
     }, 
     margin: {
         // margin: theme.spacing(2),
@@ -68,9 +73,9 @@ const Login = () => {
 
     return (
 
-        <div className={classes.root}>
-            <Typography variant='h2' align="center">
-                Nonogram
+        <Card className={classes.root}>
+            <Typography variant='h6' align="center">
+                Login
             </Typography>
 
             <TextField
@@ -105,6 +110,7 @@ const Login = () => {
                 variant='contained'  
                 onClick={() => postData()}
                 disableElevation
+                fullWidth
                 >
                 Login
             </Button>
@@ -112,7 +118,7 @@ const Login = () => {
                 <Link to='Signup'>Don't have an account?</Link>
             </Typography>
             
-        </div>
+        </Card>
 
     )
 }

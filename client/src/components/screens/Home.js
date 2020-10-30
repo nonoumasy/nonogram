@@ -243,7 +243,8 @@ const Home = ({props}) => {
                                         id="standard-full-width"
                                         label="Comment"
                                         placeholder='Add a comment'
-                                        fullWidth />
+                                        fullWidth
+                                        style={{marginBottom: '1.5rem'}} />
                                 </form>
                             </CardContent>
                         </Card>
