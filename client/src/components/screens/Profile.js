@@ -183,6 +183,7 @@ const Profile = () => {
                                             component='img'
                                             className={classes.image}
                                             image={item.image}
+                                                onClick={() => clickImageHandler()}
                                         />
                                     }
                                     </Card>
