@@ -54,18 +54,18 @@ const CreatePost = () => {
             axios.post('https://api.cloudinary.com/v1_1/nonoumasy/video/upload', data)
                 .then(res => setUrl(res.data.secure_url))
                 .catch(err => console.log(err))
-        } else {
+        } 
+        
+        if (image.type === 'image/png' || 'image/jpg' || 'image/jpeg' || 'image/gif'){
             axios.post('https://api.cloudinary.com/v1_1/nonoumasy/image/upload', data)
                 .then(res => setUrl(res.data.secure_url))
-                .catch(err => console.log(err))
+                .catch(err => console.log('something went wrong', err))
         }
 
-        
     }
         
     return (
         <div>
-            
             <input 
             type="text" 
             placeholder='title'
@@ -81,12 +81,10 @@ const CreatePost = () => {
 
             <div className="file-field input-field">
                 <div className="btn">
-                    <span>Upload Image</span>
                     <input 
                     type="file"
                     accept="video/*,image/*"
                     onChange={(e) =>{
-                        console.log(e.target.files[0])
                         setImage(e.target.files[0])
                         }
                     } 

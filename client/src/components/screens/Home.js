@@ -184,9 +184,7 @@ const Home = ({props}) => {
                                 }
                             />
                             <div style={{ marginRight: '2rem' }}></div>
-                            {console.log(item)}
-                            {
-                                (item.image.includes('video')) ?
+                            { item.image.includes('video') ?
                                     <CardMedia
                                         component='video'
                                         controls
@@ -199,7 +197,6 @@ const Home = ({props}) => {
                                         className={classes.media}
                                         image={item.image}
                                     />
-
                             }
                             
                             <CardContent>

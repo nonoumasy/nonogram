@@ -41,7 +41,6 @@ router.post('/create', checkAuth, (req, res) => {
         title,
         body,
         image,
-        image_type,
         postedBy: req.user
     })
 
