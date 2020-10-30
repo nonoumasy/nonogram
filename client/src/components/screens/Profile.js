@@ -8,6 +8,7 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
+import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles( theme => ({
     gridContainer: {
@@ -45,6 +46,10 @@ const useStyles = makeStyles( theme => ({
         margin: 0,
         padding: 0,
         borderRadius: '5px'
+    },
+    large: {
+        width: theme.spacing(15),
+        height: theme.spacing(15),
     }
 }))
 
@@ -125,21 +130,21 @@ const Profile = () => {
                     flexWrap: 'wrap',
                     marginBottom: '2rem'
                     }}>
-                    <div>
-                        <img style={{ width: "160px", height: "160px", borderRadius: "80px", objectFit: 'cover' }}
-                            src={state ? state.pic : "loading"}
-                            alt='' />
-                        <div>
-                            <input type="file" onChange={(e) => updatePhoto(e.target.files[0])} />
-                        </div>
 
+                    <div>
+                        {console.log('state', state)}
+                    <Tooltip title={state && state.name} arrow placement="right">
+                        <Avatar src={state && state.pic} className={classes.large} alt="" />     
+                    </Tooltip>
+                    <input type='file' onChange={(e) => updatePhoto(e.target.files[0])}/>
+                        
                     </div>
                     <div>
                         <Typography variant='h4'>    
-                            {state ? state.name : "loading"}
+                            {state && state.name}
                         </Typography>
                         <Typography variant='h6'>    
-                            {state ? state.email : "loading"}
+                            {state && state.email}
                         </Typography>
                         <div style={{ 
                             display: "flex", 
