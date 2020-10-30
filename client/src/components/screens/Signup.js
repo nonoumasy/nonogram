@@ -139,8 +139,10 @@ const Signup = () => {
                 onClick={() => postData()}>
                     SignUp
                 </Button>
-
+            <Typography align='center'>
                 <Link to='Login'> Already have an account?</Link>
+            </Typography>
+                
             </Card>
 
     )
