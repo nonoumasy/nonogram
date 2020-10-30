@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect} from 'react'
 import { useHistory } from 'react-router-dom'
 import M from 'materialize-css'
 import { capitalCase } from "capital-case"
@@ -31,10 +31,10 @@ const CreatePost = () => {
                 .then(data => {
 
                     if (data.error) {
-                        M.toast({ html: data.error })
+                        M.toast({ html: data.error})
                     }
                     else {
-                        M.toast({ html: "Created post Successfully" })
+                        M.toast({ html: "Created post Successfully"})
                         history.push('/')
                     }
                 }).catch(err => {
@@ -50,38 +50,44 @@ const CreatePost = () => {
         data.append('cloud_name', 'nonoumasy')
 
         // posting to cloudinary 
-        axios.post('https://api.cloudinary.com/v1_1/nonoumasy/image/upload', data)
-            .then(res => setUrl(res.data.secure_url))
-            .catch(err => console.log(err))
-    }
+        if (image.type === 'video/mp4' || 'video/webm' || 'video/ogg' || 'video/avi' || 'video/mov') {
+            axios.post('https://api.cloudinary.com/v1_1/nonoumasy/video/upload', data)
+                .then(res => setUrl(res.data.secure_url))
+                .catch(err => console.log(err))
+        } 
+        
+        if (image.type === 'image/png' || 'image/jpg' || 'image/jpeg' || 'image/gif'){
+            axios.post('https://api.cloudinary.com/v1_1/nonoumasy/image/upload', data)
+                .then(res => setUrl(res.data.secure_url))
+                .catch(err => console.log('something went wrong', err))
+        }
 
+    }
+        
     return (
         <div>
-
-            <input
-                type="text"
-                placeholder='title'
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+            <input 
+            type="text" 
+            placeholder='title'
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             />
-            <input
-                type="text"
-                placeholder='body'
-                value={body}
-                onChange={(e) => setBody(e.target.value)}
+            <input 
+            type="text" 
+            placeholder='body' 
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
             />
 
             <div className="file-field input-field">
                 <div className="btn">
-                    <span>Upload Image</span>
-                    <input
-                        type="file"
-                        accept="video/*,image/*"
-                        onChange={(e) => {
-                            console.log(e.target.files)
-                            setImage(e.target.files[0])
+                    <input 
+                    type="file"
+                    accept="video/*,image/*"
+                    onChange={(e) =>{
+                        setImage(e.target.files[0])
                         }
-                        }
+                    } 
                     />
                 </div>
                 <div className="file-path-wrapper">
@@ -96,8 +102,8 @@ const CreatePost = () => {
             </button>
 
         </div>
-    )
-
+        )
+    
 }
 
 export default CreatePost

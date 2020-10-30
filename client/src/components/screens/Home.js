@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         margin: '30px auto'
     },
     media: {
-        height: 600,
+        height: 500,
         width: '100%',
         objectFit: 'cover'
     },
