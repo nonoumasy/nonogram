@@ -159,7 +159,7 @@ const Home = ({props}) => {
             {data.map(item => { 
                 return (
                     <>
-                        <Card className={classes.card}>
+                        <Card className={classes.card} key={item._id}>
                             <CardHeader
                                 avatar={<Avatar alt="" src={item.postedBy.pic} className={classes.small} />}
                                 title={
