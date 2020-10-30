@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Navbar = props =>  {
-    const [darkMode, setDarkMode] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null);
     const { history } = props
     const classes = useStyles();

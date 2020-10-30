@@ -7,7 +7,7 @@ import Signup from './components/screens/Signup';
 import Login from './components/screens/Login';
 import Profile from './components/screens/Profile';
 import UserProfile from './components/screens/UserProfile';
-import CreatePost from './components/screens/CreatePost';
+import CreatePost from './components/screens/CreatePost_copy';
 import SubscribedUserPosts from './components/screens/SubscribedUserPosts'
 import {reducer, initialState} from './reducers/userReducer'
 

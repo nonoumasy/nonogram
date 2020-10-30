@@ -1,45 +1,17 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-
-import { makeStyles } from '@material-ui/core/styles';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import Card from '@material-ui/core/Card';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-
 import M from 'materialize-css'
+import { capitalCase } from "capital-case"
+import axios from 'axios'
 
 import '../../App.css'
 
-const useStyles = makeStyles((theme) => ({
-    dialog: {
-        maxWidth: 400,
-        margin: '10px auto',
-        padding: '30px'
-    },
-    margin: {
-        margin: theme.spacing(2),
-        padding: '0 30px'
-    },
-    input: {
-        display: 'none',
-    },
-}))
-
 const CreatePost = () => {
-    const classes = useStyles()
-    const [open, setOpen] = useState(false);
     const history = useHistory()
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
     const [image, setImage] = useState("")
     const [url, setUrl] = useState("")
-    const [value, setValue] = useState('');
 
     useEffect(() => {
         if (url) {
@@ -51,7 +23,7 @@ const CreatePost = () => {
                     "Authorization": "Bearer " + localStorage.getItem("jwt")
                 },
                 body: JSON.stringify({
-                    title,
+                    title: capitalCase(title),
                     body,
                     image: url
                 })
@@ -59,10 +31,10 @@ const CreatePost = () => {
                 .then(data => {
 
                     if (data.error) {
-                        M.toast({ html: data.error})
+                        M.toast({ html: data.error })
                     }
                     else {
-                        M.toast({ html: "Created post Successfully"})
+                        M.toast({ html: "Created post Successfully" })
                         history.push('/')
                     }
                 }).catch(err => {
@@ -71,104 +43,61 @@ const CreatePost = () => {
         }
     }, [url])
 
-    const postDetailsHandler = () => {
+    const postDetails = () => {
         const data = new FormData()
         data.append('file', image)
         data.append('upload_preset', 'nonogram')
         data.append('cloud_name', 'nonoumasy')
 
         // posting to cloudinary 
-        fetch('https://api.cloudinary.com/v1_1/nonoumasy/image/upload',
-            {
-                method: "post",
-                body: data
-            })
-            .then(res => res.json())
-            .then(data => setUrl(data.url))
+        axios.post('https://api.cloudinary.com/v1_1/nonoumasy/image/upload', data)
+            .then(res => setUrl(res.data.secure_url))
             .catch(err => console.log(err))
     }
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-        
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
-
     return (
-        <>
-            <Button onClick={handleClickOpen}>
-                Add Post
-            </Button>
-            <Dialog 
-                open={open} 
-                onClose={handleClose} 
-                aria-labelledby="form-dialog-title"
-                className={classes.dialog}
-                >
-                <DialogTitle id="form-dialog-title">Add Post</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        To add a post: please pick an interesting title, tell us a story, upload an image and then click on Post.
-                    </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="title"
-                        label="Title"
-                        fullWidth
+        <div>
+
+            <input
+                type="text"
+                placeholder='title'
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+            />
+            <input
+                type="text"
+                placeholder='body'
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+            />
+
+            <div className="file-field input-field">
+                <div className="btn">
+                    <span>Upload Image</span>
+                    <input
+                        type="file"
+                        accept="video/*,image/*"
+                        onChange={(e) => {
+                            console.log(e.target.files)
+                            setImage(e.target.files[0])
+                        }
+                        }
                     />
-                    <TextField
-                        id="standard-multiline-flexible"
-                        label="Tell us a story"
-                        multiline
-                        rowsMax={4}
-                        value={value}
-                        fullWidth
-                        onChange={handleChange}
-                    />
-                    <DialogActions>
-                        <input
-                            accept="image/*"
-                            className={classes.input}
-                            id="contained-button-file"
-                            type="file"
-                        />
-                        <label htmlFor="contained-button-file">
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                component="span"
-                                onChange={(e) => setImage(e.target.files[0])}
-                            >
-                                Upload Image
-                        </Button>
-                        </label>
-                    </DialogActions>
-                </DialogContent>
-                <DialogActions>
-                    <Button 
-                        onClick={handleClose}
-                        color="primary"
-                        >
-                        Cancel
-                    </Button>
-                    <Button 
-                        onClick={postDetailsHandler} 
-                        color="primary"
-                        >
-                        Post
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </>
-        )
-    
+                </div>
+                <div className="file-path-wrapper">
+                    <input className="file-path validate" type="text" placeholder='Add image.' />
+                </div>
+            </div>
+            <button
+                className="btn waves-effect waves-light"
+                onClick={() => postDetails()}
+            >
+                Submit Post
+            </button>
+
+        </div>
+    )
+
 }
 
 export default CreatePost

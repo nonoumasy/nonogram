@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import { useHistory } from 'react-router-dom'
 import M from 'materialize-css'
-import { capitalCase } from "capital-case";
+import { capitalCase } from "capital-case"
+import axios from 'axios'
 
 import '../../App.css'
 
@@ -49,14 +50,17 @@ const CreatePost = () => {
         data.append('cloud_name', 'nonoumasy')
 
         // posting to cloudinary 
-        fetch('https://api.cloudinary.com/v1_1/nonoumasy/image/upload',
-            {
-                method: "post",
-                body: data
-            })
-            .then(res => res.json())
-            .then(data => setUrl(data.url))
-            .catch(err => console.log(err))
+        if (image.type === 'video/mp4' || 'video/webm' || 'video/ogg') {
+            axios.post('https://api.cloudinary.com/v1_1/nonoumasy/video/upload', data)
+                .then(res => setUrl(res.data.secure_url))
+                .catch(err => console.log(err))
+        } else {
+            axios.post('https://api.cloudinary.com/v1_1/nonoumasy/image/upload', data)
+                .then(res => setUrl(res.data.secure_url))
+                .catch(err => console.log(err))
+        }
+
+        
     }
         
     return (
@@ -80,7 +84,12 @@ const CreatePost = () => {
                     <span>Upload Image</span>
                     <input 
                     type="file"
-                    onChange={(e) => setImage(e.target.files[0])}
+                    accept="video/*,image/*"
+                    onChange={(e) =>{
+                        console.log(e.target.files[0])
+                        setImage(e.target.files[0])
+                        }
+                    } 
                     />
                 </div>
                 <div className="file-path-wrapper">
