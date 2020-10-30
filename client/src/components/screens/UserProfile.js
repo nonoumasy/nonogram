@@ -8,21 +8,49 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress'
+import Tooltip from '@material-ui/core/Tooltip';
+
 
 import '../../App.css'
 
 const useStyles = makeStyles( theme => ({
     gridContainer: {
     },
-    media: {
-        height: 240,
-        paddingTop: '60%'
+    container: {
+        margin: 0,
+        padding: 0,
+        border: 0,
+        background: 'transparent',
+        cursor: 'pointer',
+        textDecoration: 'none',
+        overflow: 'hidden',
+        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1)',
+
     },
-    line: {
+    image: {
         width: '100%',
-        '& > * + *': {
-            marginTop: theme.spacing(2),
+        height: '20rem',
+        objectFit: 'cover',
+        margin: 0,
+        padding: 0,
+        borderRadius: '5px',
+        transition: '0.4s',
+        '&:hover': {
+            transformOrigin: '50% 50%',
+            transform: 'scale(1.1)',
         },
+    },
+    video: {
+        width: '100%',
+        height: '22rem',
+        objectFit: 'cover',
+        margin: 0,
+        padding: 0,
+        borderRadius: '5px'
+    },
+    large: {
+        width: theme.spacing(15),
+        height: theme.spacing(15),
     }
 
 }))
@@ -106,6 +134,10 @@ const Profile = () => {
                 setShowFollow(true)
             })
     }
+
+    const clickImageHandler = () => {
+        alert('image modal shows up')
+    }
     return (
         <>
             { userProfile ?
@@ -182,12 +214,25 @@ const Profile = () => {
                         {userProfile.posts.map(item => {
                             return (
                                 <Grid item xs={12} sm={6} md={4}>
-                                    <Card >
-                                        <CardMedia
-                                            className={classes.media}
-                                            image={item.image}
-                                        />
-                                    </Card>
+                                    <Tooltip title={item.title} arrow placement="top">
+                                        <Card className={classes.container}>
+                                            {item.image.includes('video') ?
+                                                <CardMedia
+                                                    component='video'
+                                                    controls
+                                                    className={classes.video}
+                                                    image={item.image}
+                                                />
+                                                :
+                                                <CardMedia
+                                                    component='img'
+                                                    className={classes.image}
+                                                    image={item.image}
+                                                    onClick={() => clickImageHandler()}
+                                                />
+                                            }
+                                        </Card>
+                                    </Tooltip>
                                 </Grid>
                             )
                         })
