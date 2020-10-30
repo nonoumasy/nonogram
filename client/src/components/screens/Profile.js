@@ -1,14 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { UserContext } from '../../App'
-import Footer from './Footer'
+
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import LinearProgress from '@material-ui/core/LinearProgress'
-
-import '../../App.css'
 
 const useStyles = makeStyles( theme => ({
     gridContainer: {
@@ -28,7 +26,7 @@ const useStyles = makeStyles( theme => ({
     },
     media: {
         width: '100%',
-        height: '300px',
+        height: '22rem',
         objectFit: 'cover',
         margin: 0,
         padding: 0,
@@ -120,7 +118,7 @@ const Profile = () => {
     return (
         <>
             { !isLoading ?
-            <div className='profile-container'>
+            <>
                 <div style={{ 
                     display: "flex", 
                     flexDirection: 'row', 
@@ -184,15 +182,13 @@ const Profile = () => {
                         })
                     } 
                 </Grid>
-            </div>
+            </>
             :
             <div>
                 <LinearProgress color="primary" className={classes.line} />
             </div>
+            </>
             }
-            <div>
-                <Footer />
-            </div>
         </>
     )
 }
