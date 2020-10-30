@@ -76,7 +76,7 @@ const CreatePost = () => {
         data.append('cloud_name', 'nonoumasy')
 
         // posting to cloudinary 
-        if (image.type === 'video/mp4' || 'video/webm' || 'video/ogg' || 'video/avi' || 'video/mov'){
+        if (image.type === 'video/mp4' || 'video/webm' || 'video/ogg' || 'video/avi' || 'video/mov') {
             axios.post('https://api.cloudinary.com/v1_1/nonoumasy/video/upload', data)
                 .then(res => { 
                     setStatusBase({ msg: "Created post Successfully", key: Math.random() })
@@ -87,8 +87,7 @@ const CreatePost = () => {
                     console.log('something went wrong', err)
             }) 
         } 
-        
-        if (image.type === 'image/png' || 'image/jpg' || 'image/jpeg' || 'image/gif'){
+        if (image.type === 'image/png' || 'image/jpg' || 'image/jpeg' || 'image/gif') {
             axios.post('https://api.cloudinary.com/v1_1/nonoumasy/image/upload', data)
                 .then(res => {
                     setStatusBase({ msg: "Created post Successfully", key: Math.random() })
@@ -98,7 +97,7 @@ const CreatePost = () => {
                 .catch(err => {
                     console.log('something went wrong', err)
                 }) 
-        }
+        } 
     }
 
     const handleClose = (event, reason) => {

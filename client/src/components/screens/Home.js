@@ -151,7 +151,6 @@ const Home = ({props}) => {
             const newData = data.filter(item=> {
                 return item._id !== result._id
             })
-            setStatusBase({ msg: "Post Deleted", key: Math.random() })
             setData(newData)
         })
         .catch(err => console.log(err))
@@ -169,6 +168,7 @@ const Home = ({props}) => {
             {data.map(item => { 
                 return (
                     <>
+                        { status ? <AlertMassage key={status.key} message={status.msg} /> : null}
                         <Card className={classes.card} key={item._id}>
                             <CardHeader
                                 avatar={<Avatar alt="" src={item.postedBy.pic} className={classes.small} />}
@@ -258,7 +258,7 @@ const Home = ({props}) => {
                                 </form>
                             </CardContent>
                         </Card>
-                        { status ? <AlertMassage key={status.key} message={status.msg} /> : null}
+                       
                     </>  
                 )
             })
