@@ -20,7 +20,7 @@ import LockIcon from '@material-ui/icons/Lock';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 400,
+        maxWidth: 300,
         margin: '30px auto'
     }, 
     margin: {
@@ -68,7 +68,7 @@ const Login = () => {
 
     return (
 
-        <Paper className={classes.root}>
+        <div className={classes.root}>
             <Typography variant='h2' align="center">
                 Nonogram
             </Typography>
@@ -112,7 +112,7 @@ const Login = () => {
                 <Link to='Signup'>Don't have an account?</Link>
             </Typography>
             
-        </Paper>
+        </div>
 
     )
 }

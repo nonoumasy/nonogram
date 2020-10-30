@@ -1,106 +1,9 @@
-a {
-  color: black !important;
-}
-
-#nav-mobile {
-  margin-right: 2rem;
-}
-
-.brand-logo,
-h2 {
-  margin-left: 2rem;
-  font-size: 1.5rem !important;
-}
-
-.mycard {
-  margin-top: 3rem;
-}
-
-.auth-card {
-  padding: 20px;
-  text-align: center;
-  max-width: 400px;
-  margin: 10px auto;
-}
-
-.home-card {
-  max-width: 600px;
-  height: max-content;
-  margin: 2rem auto;
-}
-
-.input-file {
-  margin: 10px auto;
-  max-width: 400px;
-  padding: 20px;
-  text-align: center;
-}
-
-.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.item {
-  width: 30%;
-  height: 240px;
-  object-fit: cover;
-  margin-bottom: 2rem;
-}
-
-.collection-item {
-  width: 100%;
-}
-
 #toast-container {
   top: 30px;
   right: 30px;
 }
 
-.material-icons:hover {
-  cursor: pointer;
-}
-
-.thumbs {
-  display: inline;
-  margin-left: 0;
-}
-
-.postedby {
-  margin-left: 0.6rem;
-  font-weight: 500;
-  font-size: 1.5rem;
-}
-
-.card_top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.2rem 0;
-}
-
-.avatar {
-  height: 2rem;
-  width: 2rem;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-left: 2rem;
-}
-
-.flex {
-  display: flex;
-  align-items: center;
-}
-
-.footer {
-  bottom: 0;
-  font-size: 10px;
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.profile-container {
+/* .profile-container {
   width: 50vw;
   margin: 70px auto;
 }
@@ -117,4 +20,4 @@ h2 {
     width: 90vw;
     margin: 70px auto;
   }
-}
+} */

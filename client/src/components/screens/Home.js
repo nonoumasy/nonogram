@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { UserContext } from '../../App'
-import Footer from './Footer'
 import { Link } from 'react-router-dom'
 import { capitalCase } from "capital-case";
 
@@ -18,7 +17,6 @@ import ThumbUp from '@material-ui/icons/ThumbUp';
 import ThumbDown from '@material-ui/icons/ThumbDown';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
-import LinearProgress from '@material-ui/core/LinearProgress'
 
 import '../../App.css'
 
@@ -168,7 +166,7 @@ const Home = ({props}) => {
 
     return (
         <>
-            <div>
+            
                 { !isLoading ?
                     data.map(item => { 
                         return (
@@ -255,13 +253,10 @@ const Home = ({props}) => {
                     })
                     :
                     <div>
-                        <LinearProgress color="primary" className={classes.line}/>
+                        
                     </div>
                 }
-            </div>
-            <div>
-                <Footer />
-            </div>
+
         </>
         
 

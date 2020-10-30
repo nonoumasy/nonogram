@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { UserContext } from '../../App'
 import { useParams } from 'react-router-dom'
-import Footer from './Footer'
 import Card from '@material-ui/core/Card';
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -111,7 +110,7 @@ const Profile = () => {
         <>
             { userProfile ?
                 <>
-                <div className='profile-container'>
+
 
                     <div style={{
                         display: "flex",
@@ -194,9 +193,8 @@ const Profile = () => {
                         })
                         }
                     </Grid>
+
                     
-                </div>
-                    <Footer /> 
                 </>
                 : 
                 <div>

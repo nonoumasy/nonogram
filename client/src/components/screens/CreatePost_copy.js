@@ -60,7 +60,7 @@ const CreatePost = () => {
     }
         
     return (
-        <div className='card input-file'>
+        <div>
             
             <input 
             type="text" 

@@ -71,8 +71,8 @@ const Signup = () => {
     }
 
     return (
-        <div className='mycard'>
-            <div className="card auth-card">
+        <div>
+            <div>
                 <h2>Nonogram</h2>
                 <input
                     type="text"

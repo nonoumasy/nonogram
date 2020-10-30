@@ -187,7 +187,6 @@ const Profile = () => {
             <div>
                 <LinearProgress color="primary" className={classes.line} />
             </div>
-            </>
             }
         </>
     )

@@ -1,9 +1,10 @@
 const express = require('express')
 const app = express()
-const cors = require('cors')
 const mongoose = require('mongoose')
+const cors = require('cors')
 const User = require('./models/user')
 const Post = require('./models/post')
+
 require('dotenv').config()
 
 //

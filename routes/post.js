@@ -12,7 +12,6 @@ router.get('/allpost', checkAuth, (req, res) => {
         }).catch(err => {
             console.log(err)
         })
-
 })
 
 router.get('/getsubpost', checkAuth, (req, res) => {
