@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 import { UserContext } from '../../App'
 import { Link } from 'react-router-dom'
 import { capitalCase } from "capital-case";
+import AlertMassage from "./AlertMessage"
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -44,6 +45,8 @@ const Home = ({props}) => {
     const classes = useStyles()
     const [data, setData] = useState([])
     const {state, dispatch} = useContext(UserContext)
+    const [status, setStatusBase] = useState("");
+    const [open, setOpen] = useState(false)
 
     useEffect(() => {
         fetch('/allpost', {
@@ -145,13 +148,20 @@ const Home = ({props}) => {
         })
         .then(res => res.json())
         .then(result => {
-            // console.log(result)
+            setStatusBase({ msg: "Post Deleted", key: Math.random() })
             const newData = data.filter(item=> {
                 return item._id !== result._id
             })
             setData(newData)
         })
         .catch(err => console.log(err))
+    }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
     }
 
     return (
@@ -248,6 +258,7 @@ const Home = ({props}) => {
                                 </form>
                             </CardContent>
                         </Card>
+                        { status ? <AlertMassage key={status.key} message={status.msg} /> : null}
                     </>  
                 )
             })

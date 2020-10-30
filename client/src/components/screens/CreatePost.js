@@ -40,6 +40,7 @@ const CreatePost = () => {
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
+adde        
         if (url) {
             // posting to database
             fetch("/create", {
@@ -54,19 +55,19 @@ const CreatePost = () => {
                     image: url
                 })
             }).then(res => res.json())
-                .then(data => {
+            .then(data => {
                     if (data.error) {
-                        setStatusBase({ msg: "Something went wrong", key: Math.random() });
+                        setStatusBase({ msg: data.error, key: Math.random() })
                     }
                     else {
-                        setStatusBase({ msg: "Created post Successfully", key: Math.random() });
+                        setStatusBase({ msg: "Created post Successfully", key: Math.random() })
                         history.push('/')
                     }
                 }).catch(err => {
                     console.log(err)
                 })
         }
-    }, [url, status])
+    }, [url])
 
     const postDetails = () => {
         const data = new FormData()
@@ -75,18 +76,31 @@ const CreatePost = () => {
         data.append('cloud_name', 'nonoumasy')
 
         // posting to cloudinary 
-        if (image.type === 'video/mp4' || 'video/webm' || 'video/ogg' || 'video/avi' || 'video/mov') {
+        if (image.type === 'video/mp4' || 'video/webm' || 'video/ogg' || 'video/avi' || 'video/mov'){
             axios.post('https://api.cloudinary.com/v1_1/nonoumasy/video/upload', data)
-                .then(res => setUrl(res.data.secure_url))
-                .catch(err => console.log(err))
+                .then(res => { 
+                    setStatusBase({ msg: "Created post Successfully", key: Math.random() })
+                    setUrl(res.data.secure_url)
+                }
+                    )
+                .catch(err => { 
+                    console.log('something went wrong', err)
+            }) 
         } 
         
         if (image.type === 'image/png' || 'image/jpg' || 'image/jpeg' || 'image/gif'){
             axios.post('https://api.cloudinary.com/v1_1/nonoumasy/image/upload', data)
-                .then(res => setUrl(res.data.secure_url))
-                .catch(err => console.log('something went wrong', err))
+                .then(res => {
+                    setStatusBase({ msg: "Created post Successfully", key: Math.random() })
+                    setUrl(res.data.secure_url)
+                }
+                )
+                .catch(err => {
+                    console.log('something went wrong', err)
+                }) 
         }
     }
+
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -96,8 +110,8 @@ const CreatePost = () => {
 
         
     return (
+        <>
         <Card className={classes.root}>
-
             <Typography variant='h6' align="center">
                 Add Post
             </Typography>
@@ -136,9 +150,10 @@ const CreatePost = () => {
                 onClick={() => postDetails()}>
                 Submit Post
             </Button>
-            {status ? <AlertMassage key={status.key} message={status.msg} /> : null}
+            
         </Card>
-        
+        { status ? <AlertMassage key={status.key} message={status.msg} /> : null }
+        </>
         )
     
 }
