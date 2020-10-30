@@ -17,14 +17,14 @@ import ThumbUp from '@material-ui/icons/ThumbUp';
 import ThumbDown from '@material-ui/icons/ThumbDown';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
+import LinearProgress from '@material-ui/core/LinearProgress'
 
 import '../../App.css'
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    card: {
         maxWidth: 600,
-        margin: '30px auto',
-        paddingBottom: '10px'
+        margin: '30px auto'
     },
     media: {
         height: 600,
@@ -171,7 +171,7 @@ const Home = ({props}) => {
                     data.map(item => { 
                         return (
                             <>
-                                <Card className={classes.root}>
+                                <Card className={classes.card}>
                                     <CardHeader
                                         avatar={<Avatar alt="" src={item.postedBy.pic} className={classes.small} />}
                                         title={
@@ -253,7 +253,7 @@ const Home = ({props}) => {
                     })
                     :
                     <div>
-                        
+                    <LinearProgress color="primary" className={classes.line} />
                     </div>
                 }
 

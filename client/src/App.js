@@ -10,6 +10,7 @@ import UserProfile from './components/screens/UserProfile';
 import CreatePost from './components/screens/CreatePost';
 import SubscribedUserPosts from './components/screens/SubscribedUserPosts'
 import {reducer, initialState} from './reducers/userReducer'
+
 import Container from '@material-ui/core/Container';
 
 export const UserContext = createContext()
@@ -33,7 +34,7 @@ function App() {
   return (
     <>
       <UserContext.Provider value={{state, dispatch}}>
-        <Container maxWidth='md'> 
+        <Container maxWidth='md' style={{ margin: '2rem auto'}}> 
           <Navbar/>
           <Route exact path='/'>
             <Home />
@@ -57,10 +58,10 @@ function App() {
             <SubscribedUserPosts />
           </Route>
         <Footer />
-        </Container>
+        </Container >
       </UserContext.Provider>
     </>
-  );
+  )
 }
 
 export default App;

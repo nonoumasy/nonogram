@@ -6,7 +6,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
-import LinearProgress from '@material-ui/core/LinearProgress'
 
 const useStyles = makeStyles( theme => ({
     gridContainer: {
@@ -36,12 +35,6 @@ const useStyles = makeStyles( theme => ({
             transformOrigin: '50% 50%',
             transform: 'scale(1.1)',
         },
-    },
-    line: {
-        width: '100%',
-        '& > * + *': {
-            marginTop: theme.spacing(2),
-        },
     }
 }))
 
@@ -50,10 +43,8 @@ const Profile = () => {
     const { state, dispatch } = useContext(UserContext)
     const [mypics, setMyPics] = useState([])
     const [image, setImage] = useState("")
-    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        setIsLoading(true)
         fetch('/mypost', {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
@@ -62,7 +53,6 @@ const Profile = () => {
             .then(res => res.json())
             .then(result => {
                 setMyPics(result.post)
-                setIsLoading(false)
             } 
             )
         
@@ -117,8 +107,6 @@ const Profile = () => {
 
     return (
         <>
-            { !isLoading ?
-            <>
                 <div style={{ 
                     display: "flex", 
                     flexDirection: 'row', 
@@ -182,12 +170,6 @@ const Profile = () => {
                         })
                     } 
                 </Grid>
-            </>
-            :
-            <div>
-                <LinearProgress color="primary" className={classes.line} />
-            </div>
-            }
         </>
     )
 }
