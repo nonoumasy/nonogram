@@ -148,10 +148,10 @@ const Home = ({props}) => {
         })
         .then(res => res.json())
         .then(result => {
-            setStatusBase({ msg: "Post Deleted", key: Math.random() })
             const newData = data.filter(item=> {
                 return item._id !== result._id
             })
+            setStatusBase({ msg: "Post Deleted", key: Math.random() })
             setData(newData)
         })
         .catch(err => console.log(err))

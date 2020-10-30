@@ -40,7 +40,7 @@ const CreatePost = () => {
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
-adde        
+        
         if (url) {
             // posting to database
             fetch("/create", {
