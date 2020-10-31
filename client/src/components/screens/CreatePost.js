@@ -1,16 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import { useHistory } from 'react-router-dom'
-import M from 'materialize-css'
 import { capitalCase } from "capital-case"
 import axios from 'axios'
-import AlertMassage from "./AlertMessage"
+import AlertMassage from "../shared/AlertMessage"
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
 import '../../App.css'
 
@@ -29,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const CreatePost = () => {
     const classes = useStyles()
     const history = useHistory()
-    
+
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
     const [image, setImage] = useState("")

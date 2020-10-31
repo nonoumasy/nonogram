@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import useForm from 'react-hook-form'
 import { UserContext} from '../../App'
-import AlertMassage from "./AlertMessage"
+import AlertMassage from "../shared/AlertMessage"
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card'
@@ -32,6 +33,7 @@ const Login = () => {
     const classes = useStyles();
     const history = useHistory()
     const {state, dispatch} = useContext(UserContext)
+    const { register, handleSubmit, errors} = useForm()
 
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
@@ -74,7 +76,7 @@ const Login = () => {
     }
 
     return (
-        <Card className={classes.root}>
+        <form onSubmit={} className={classes.root}>
             <Typography variant='h6' align="center">
                 Login
             </Typography>
@@ -122,7 +124,7 @@ const Login = () => {
             {status ? <AlertMassage key={status.key} message={status.msg} /> : null}
 
             
-        </Card>
+        </form>
 
     )
 }

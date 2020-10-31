@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport(sendgridTransport({
 // signup
 router.post('/signup', 
     [
-        check('name').isLength({ min: 6 }),
+        check('name').isLength({ min: 3 }),
         check('email').normalizeEmail().isEmail(),
         check('password').isLength({min: 4})
     ],

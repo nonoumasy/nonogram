@@ -11,8 +11,8 @@ import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
 import {withRouter} from 'react-router-dom'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { UserContext } from '../App' 
-import Scroll from './screens/Scroll'
+import { UserContext } from '../../App' 
+import Scroll from '../shared/Scroll'
 import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme) => ({

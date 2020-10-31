@@ -2,10 +2,9 @@ import React, {useState, useEffect, useContext} from 'react'
 import { UserContext } from '../../App'
 import { Link } from 'react-router-dom'
 import { capitalCase } from "capital-case";
-import AlertMassage from "./AlertMessage"
+import AlertMassage from "../shared/AlertMessage"
 
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles'; 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -236,9 +235,15 @@ const Home = ({props}) => {
                                     item.comments.map(record => {
                                         return (
                                             <>
+                                            try {
                                                 <Typography >
                                                     <span style={{ fontWeight: '700' }}>{record.postedBy.name}</span> {record.text}
                                                 </Typography>
+                                            } catch {
+                                                console.log('sadfds')
+                                            }
+
+                                                
 
                                             </>
                                         )

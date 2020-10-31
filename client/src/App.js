@@ -1,10 +1,10 @@
 import React, {useEffect, createContext, useReducer, useState} from 'react';
 import { Route, useHistory } from 'react-router-dom'
-import Navbar from './components/Navbar';
-import Footer from './components/Footer'
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer'
 import Home from './components/screens/Home'
-import Signup from './components/screens/Signup';
-import Login from './components/screens/Login';
+import Signup from './components/screens/Signup_copy';
+import Login from './components/screens/Login_copy';
 import Profile from './components/screens/Profile';
 import UserProfile from './components/screens/UserProfile';
 import CreatePost from './components/screens/CreatePost';
