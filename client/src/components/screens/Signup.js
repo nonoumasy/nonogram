@@ -18,11 +18,7 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: 300,
         margin: '30px auto',
         padding: theme.spacing(6)
-    },
-    margin: {
-        // margin: theme.spacing(2),
-
-    },
+    }
 }))
 
 const Signup = () => {
@@ -98,7 +94,6 @@ const Signup = () => {
                     Signup
                 </Typography>
                 <TextField
-                    className={classes.margin}
                     type='text'
                     placeholder='name'
                     value={name}
@@ -106,7 +101,6 @@ const Signup = () => {
                     onChange={(e) => setName(e.target.value)}
                 />
                 <TextField
-                    className={classes.margin}
                     type='email'
                     placeholder='email'
                     value={email}
@@ -115,7 +109,6 @@ const Signup = () => {
                 />
                 
                 <TextField
-                    className={classes.margin}
                     type='password'
                     placeholder='password'
                     value={password}

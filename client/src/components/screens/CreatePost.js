@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 const CreatePost = () => {
     const classes = useStyles()
     const history = useHistory()
+    
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
     const [image, setImage] = useState("")
