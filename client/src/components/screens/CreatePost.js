@@ -10,6 +10,7 @@ import Card from '@material-ui/core/Card'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
 import '../../App.css'
 
@@ -22,11 +23,7 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: 300,
         margin: '30px auto',
         padding: theme.spacing(6)
-    },
-    margin: {
-        // margin: theme.spacing(2),
-
-    },
+    }
 }))
 
 const CreatePost = () => {
@@ -76,7 +73,7 @@ const CreatePost = () => {
         data.append('cloud_name', 'nonoumasy')
 
         // posting to cloudinary 
-        if (image.type === 'video/mp4' || 'video/webm' || 'video/ogg' || 'video/avi' || 'video/mov') {
+        if ((image.type === 'video/mp4') || (image.type === 'video/webm') || (image.type === 'video/ogg')) {
             axios.post('https://api.cloudinary.com/v1_1/nonoumasy/video/upload', data)
                 .then(res => { 
                     setStatusBase({ msg: "Created post Successfully", key: Math.random() })
@@ -87,7 +84,8 @@ const CreatePost = () => {
                     console.log('something went wrong', err)
             }) 
         } 
-        if (image.type === 'image/png' || 'image/jpg' || 'image/jpeg' || 'image/gif') {
+        if
+            ((image.type === 'image/png') || (image.type === 'image/jpg') || (image.type === 'image/jpeg' || (image.type === 'image/gif') )) {
             axios.post('https://api.cloudinary.com/v1_1/nonoumasy/image/upload', data)
                 .then(res => {
                     setStatusBase({ msg: "Created post Successfully", key: Math.random() })
@@ -116,7 +114,7 @@ const CreatePost = () => {
             </Typography>
 
             <TextField
-                className={classes.margin}
+                label='Title'
                 type='text'
                 placeholder='title'
                 value={title}
@@ -125,13 +123,15 @@ const CreatePost = () => {
             />
 
             <TextField
-                className={classes.margin}
-                type='text'
-                placeholder='body'
-                value={body}
-                fullWidth
-                onChange={(e) => setBody(e.target.value)}
-            />
+                    rows={4}
+                    label="Tell us a story"
+                    multiline
+                    placeholder='Once a upon a time...'
+                    value={body}
+                    fullWidth
+                    onChange={(e) => setBody(e.target.value)}
+                    
+                />
 
             <Button fullwidth>
                 <input
@@ -146,6 +146,7 @@ const CreatePost = () => {
                 variant='contained'
                 disableElevation
                 fullWidth
+                type='submit'
                 onClick={() => postDetails()}>
                 Submit Post
             </Button>
