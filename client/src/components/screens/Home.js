@@ -198,6 +198,7 @@ const Home = ({props}) => {
                                         controls
                                         className={classes.media}
                                         image={item.image}
+                                        type="*"
                                     />
                                     :
                                     <CardMedia
