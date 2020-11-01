@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { UserContext } from '../../App'
 import { Link } from 'react-router-dom'
-import { capitalCase } from "capital-case";
 import AlertMassage from "../shared/AlertMessage"
 
 import { makeStyles } from '@material-ui/core/styles'; 
@@ -226,7 +225,7 @@ const Home = ({props}) => {
                                     {item.likes.length} likes
                                 </Typography>
                                 <Typography variant="h6">
-                                    {capitalCase(item.title)}
+                                    {item.title}
                                 </Typography>
                                 <Typography>
                                     {item.body}
@@ -236,16 +235,9 @@ const Home = ({props}) => {
                                     item.comments.map(record => {
                                         return (
                                             <>
-                                            try {
-                                                <Typography >
-                                                    <span style={{ fontWeight: '700' }}>{record.postedBy.name}</span> {record.text}
-                                                </Typography>
-                                            } catch {
-                                                console.log('sadfds')
-                                            }
-
-                                                
-
+                                            <Typography >
+                                                <span style={{ fontWeight: '700' }}>{record.postedBy.name}</span> {record.text}
+                                            </Typography>
                                             </>
                                         )
                                     })
