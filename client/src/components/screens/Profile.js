@@ -5,6 +5,7 @@ import AlertMassage from "../shared/AlertMessage"
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -57,10 +58,23 @@ const useStyles = makeStyles( theme => ({
         padding: 0,
         borderRadius: '5px'
     },
-    large: {
+    button: {
+        cursor: 'pointer',
+        overflow: 'hidden',
+        borderRadius: '50%',
+        margin:0,
+        padding:0,
+        
+    },
+    avatar: {
         width: theme.spacing(15),
         height: theme.spacing(15),
-    }
+        '&:hover': {
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            transformOrigin: '50% 50%',
+            transform: 'scale(1.1)',
+        },
+    },
 }))
 
 const Profile = () => {
@@ -125,9 +139,9 @@ const Profile = () => {
         }
     }, [image])
 
-    const updatePhoto = (file) => {
-        setImage(file)
-        setStatusBase({ msg: "Photo updated", key: Math.random() });
+    const updatePhoto = async (file) => {
+        await setImage(file)
+        await setStatusBase({ msg: "Photo updated", key: Math.random() });
     }
 
     const clickImageHandler = (props) => {
@@ -162,13 +176,25 @@ const Profile = () => {
                     marginBottom: '2rem'
                     }}>
 
-                    <div>
-                    <Tooltip title={state && state.name} arrow placement="right">
-                        <Avatar src={state && state.pic} className={classes.large} alt="" />     
-                    </Tooltip>
-                    <input type='file' onChange={(e) => updatePhoto(e.target.files[0])}/>
-                        
-                    </div>
+                    
+                        <input
+                            accept="image/*"
+                            // className={classes.input}
+                            style={{ display: 'none' }}
+                            id="raised-button-file"
+                            type="file"
+                                onChange={(e) => updatePhoto(e.target.files[0])}
+                        />
+                        <Tooltip title='Change Profile Photo ' arrow placement="left">
+                            <label htmlFor="raised-button-file">
+                                <Button variant="raised" component="span" className={classes.button}>
+                                    <Avatar src={state && state.pic} className={classes.avatar} alt=""/>
+                                </Button>
+                            </label>
+                        </Tooltip>
+               
+                    
+                    
                     <div>
                         <Typography variant='h4'>    
                             {state && state.name}
