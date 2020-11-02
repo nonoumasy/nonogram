@@ -177,11 +177,22 @@ const Signup = () => {
                         </Grid>
                         
                     </Grid>
-                        <input
-                            type="file"
-                            inputRef={register} 
-                            onChange={(e) => setImage(e.target.files[0])}
-                        />
+                    <input
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                        type="file"
+                        id="raised-button-file"
+                        inputRef={register}
+                        onChange={(e) => setImage(e.target.files[0])}
+                    />
+                    <label htmlFor="raised-button-file">
+                        <Button 
+                        variant="contained" 
+                        component="span" 
+                        className={classes.submit}>
+                            Upload Photo
+                        </Button>
+                    </label> 
 
                     <Button
                         type="submit"
