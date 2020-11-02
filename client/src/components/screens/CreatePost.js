@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
-        height: 300,
-        maxWidth: 300,
+        height: 400,
+        maxWidth: 400,
         margin: '30px auto',
         padding: theme.spacing(6)
     }
@@ -30,10 +30,12 @@ const CreatePost = () => {
 
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
-    const [image, setImage] = useState("")
+    const [image, setImage] = useState([])
     const [url, setUrl] = useState("")
     const [status, setStatusBase] = useState("");
     const [open, setOpen] = useState(false)
+
+    console.log('image', image)
 
     useEffect(() => {
         
@@ -66,14 +68,19 @@ const CreatePost = () => {
     }, [url])
 
     const postDetails = () => {
-        const data = new FormData()
-        data.append('file', image)
-        data.append('upload_preset', 'nonogram')
-        data.append('cloud_name', 'nonoumasy')
+        console.log('image: ', image)
+            const data = new FormData()
+            
+        for (let i = 0; i < image.length; i++) {
+            let image = image[i];
+            data.append('file', image)
+            data.append('upload_preset', 'nonogram')
+            data.append('cloud_name', 'nonoumasy')
 
-        // posting to cloudinary 
-        if ((image.type === 'video/mp4') || (image.type === 'video/webm') || (image.type === 'video/ogg')) {
-            axios.post('https://api.cloudinary.com/v1_1/nonoumasy/video/upload', data)
+            // posting to cloudinary 
+            if ((image.type === 'video/mp4') || (image.type === 'video/webm') || (image.type === 'video/ogg')) {
+                axios.post('https://api.cloudinary.com/v1_1/nonoumasy/video/upload', data)
+        
                 .then(res => { 
                     setStatusBase({ msg: "Created post Successfully", key: Math.random() })
                     setUrl(res.data.secure_url)
@@ -95,7 +102,7 @@ const CreatePost = () => {
                     console.log('something went wrong', err)
                 }) 
         } 
-    }
+    }}
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -118,7 +125,7 @@ const CreatePost = () => {
                 placeholder='title'
                 value={title}
                 fullWidth
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={(e) => setTitle([e.target.value])}
             />
 
             <TextField
@@ -134,10 +141,10 @@ const CreatePost = () => {
 
             <Button fullwidth>
                 <input
-
+                    multiple
                     type="file"
                     accept="video/*,image/*"
-                    onChange={(e) => setImage(e.target.files[0])}
+                    onChange={(e) => setImage(e.target.files)}
                 />
             </Button>
 

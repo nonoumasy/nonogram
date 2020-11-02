@@ -9,10 +9,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    image: {
+    image: [{
         type: String,
         required: true
-    },
+    }],
     likes: [{
         type: ObjectId,
         ref: "User"
