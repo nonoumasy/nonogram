@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react'
 import { Link, useHistory} from 'react-router-dom'
 import {useForm} from 'react-hook-form'
 import axios from 'axios'
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -18,10 +18,16 @@ import Container from '@material-ui/core/Container';
 import '../../App.css'
 
 const schema = yup.object().shape({
+    name: yup
+        .string().min(3, "3 Character Mininum")
+        .required("Name is a required field"),   
     email: yup
         .string()
         .email("Email should have correct format")
         .required("Email is a required field"),
+    password: yup
+        .string().min(6, "6 Character Mininum")
+        .required("Password is a required field"),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -131,7 +137,7 @@ const Signup = () => {
                                 label="name"
                                 autoFocus
                                 onChange={(e) => setName(e.target.value)}
-                                inputRef={register({ required: 'Name is required', minLength: { value: 3, message: 'Name should be atleast 3 characters' } })} 
+                                inputRef={register} 
                                 error={!!errors.name}
                                 helperText={errors?.name?.message}
                             />
@@ -146,7 +152,7 @@ const Signup = () => {
                                 name="email"
                                 autoComplete="email"
                                 onChange={(e) => setEmail(e.target.value)}
-                                inputRef={register({ required: 'Email is required' })}
+                                inputRef={register}
                                 error={!!errors.email}
                                 helperText={errors?.email?.message}
                             />
