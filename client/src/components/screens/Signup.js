@@ -1,25 +1,40 @@
 import React, {useState, useEffect} from 'react'
 import { Link, useHistory} from 'react-router-dom'
+import {useForm} from 'react-hook-form'
+import axios from 'axios'
 
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card'
-import Button from '@material-ui/core/Button'
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
 import '../../App.css'
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    paper: {
+        marginTop: theme.spacing(8),
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-around',
-        height: 300,
-        maxWidth: 300,
-        margin: '30px auto',
-        padding: theme.spacing(6)
-    }
-}))
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(3),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+}));
 
 const Signup = () => {
     const classes = useStyles()
@@ -29,6 +44,7 @@ const Signup = () => {
     const [email, setEmail] = useState('')
     const [image, setImage] = useState("")
     const [url, setUrl] = useState(undefined)
+    const {register, handleSubmit, errors} = useForm()
 
     useEffect(() => {
         if (url) {
@@ -43,13 +59,10 @@ const Signup = () => {
         data.append('cloud_name', 'nonoumasy')
 
         // posting to cloudinary 
-        fetch('https://api.cloudinary.com/v1_1/nonoumasy/image/upload',
-            {
-                method: "post",
-                body: data
+        axios.post('https://api.cloudinary.com/v1_1/nonoumasy/image/upload', data)
+            .then(result => {
+                setUrl(result.data.url)
             })
-            .then(res => res.json())
-            .then(data => setUrl(data.url))
             .catch(err => console.log(err))
         }
 
@@ -65,8 +78,7 @@ const Signup = () => {
                 password,
                 pic: url
             })
-        }
-        )
+        })
             .then(res => res.json())
             .then(data => {
                 if (data.error) {
@@ -89,55 +101,92 @@ const Signup = () => {
     }
 
     return (
-            <Card className={classes.root}>
-                <Typography variant='h6' align="center">
-                    Signup
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign up
                 </Typography>
-                <TextField
-                    type='text'
-                    placeholder='name'
-                    value={name}
-                    fullWidth
-                    onChange={(e) => setName(e.target.value)}
-                />
-                <TextField
-                    type='email'
-                    placeholder='email'
-                    value={email}
-                    fullWidth
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                
-                <TextField
-                    type='password'
-                    placeholder='password'
-                    value={password}
-                    fullWidth
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+                    <form className={classes.form} noValidate onSubmit={handleSubmit(postData)}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <TextField
+                                autoComplete="name"
+                                name="name"
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="name"
+                                label="name"
+                                autoFocus
+                                onChange={(e) => setName(e.target.value)}
+                                inputRef={register({ required: 'Name is required', minLength: { value: 3, message: 'Name should be atleast 3 characters' } })} 
+                                error={!!errors.name}
+                                helperText={errors?.name?.message}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                onChange={(e) => setEmail(e.target.value)}
+                                inputRef={register({ required: 'Email is required' })}
+                                error={!!errors.email}
+                                helperText={errors?.email?.message}
+                            />
+                                {errors.email && <span>{errors.email.message}</span>}
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                onChange={(e) => setPassword(e.target.value)}
+                                inputRef={register({ required: 'Password is required', minLength: { value: 6, message: 'Password should be atleast 6 characters' } })}
+                                error={!!errors.password}
+                                helperText={errors?.password?.message}
+                            />
+                                {errors.password && <span>{errors.password.message}</span>}
+                        </Grid>
+                        
+                    </Grid>
+                        <input
+                            type="file"
+                            inputRef={register} 
+                            onChange={(e) => setImage(e.target.files[0])}
+                        />
 
-                <Button fullwidth>
-                    <input
-
-                        type="file"
-                        onChange={(e) => setImage(e.target.files[0])}
-                    />
-                </Button>
-
-                    
-                <Button 
-                variant='contained'
-                disableElevation
-                fullWidth
-                onClick={() => postData()}>
-                    SignUp
-                </Button>
-            <Typography align='center'>
-                <Link to='Login'> Already have an account?</Link>
-            </Typography>
-                
-            </Card>
-
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}>
+                        Sign Up
+                    </Button>
+                    <Grid container justify="flex-end">
+                        <Grid item>
+                                <Link to='Login' variant="body2"> 
+                                Already have an account? Sign in
+                            </Link>
+                        </Grid>
+                    </Grid>
+                </form>
+            </div>
+        </Container>
     )
 }
 
