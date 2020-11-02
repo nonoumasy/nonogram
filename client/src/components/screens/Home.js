@@ -17,7 +17,6 @@ import ThumbDown from '@material-ui/icons/ThumbDown';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip'
 
-
 import '../../App.css'
 
 const useStyles = makeStyles((theme) => ({
@@ -164,6 +163,7 @@ const Home = ({props}) => {
     return (
         <>
             {data.map(item => { 
+                console.log('item',item)
                 return (
                     <>
                         { status ? <AlertMassage key={status.key} message={status.msg} /> : null}
