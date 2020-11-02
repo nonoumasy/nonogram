@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import {useForm} from 'react-hook-form'
 import { UserContext} from '../../App'
@@ -33,7 +33,6 @@ const Login = () => {
             })
             .catch(err => console.log(err))
     }
- 
     return (
         <form onSubmit={handleSubmit(postData)}>
             <input type='email' name='email' ref={register} />

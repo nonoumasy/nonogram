@@ -1,4 +1,4 @@
-import React, {useEffect, createContext, useReducer, useState} from 'react';
+import React, {useEffect, createContext, useReducer} from 'react';
 import { Route, useHistory } from 'react-router-dom'
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer'
