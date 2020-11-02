@@ -139,9 +139,9 @@ const Profile = () => {
         }
     }, [image])
 
-    const updatePhoto = async (file) => {
-        await setImage(file)
-        await setStatusBase({ msg: "Photo updated", key: Math.random() });
+    const updatePhoto =  (file) => {
+        setImage(file)
+        setStatusBase({ msg: "Photo updated", key: Math.random() });
     }
 
     const clickImageHandler = (props) => {

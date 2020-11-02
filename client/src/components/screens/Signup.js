@@ -31,7 +31,7 @@ const schema = yup.object().shape({
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(6),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -155,7 +155,6 @@ const Signup = () => {
                                 error={!!errors.email}
                                 helperText={errors?.email?.message}
                             />
-                                {errors.email && <span>{errors.email.message}</span>}
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
@@ -168,11 +167,10 @@ const Signup = () => {
                                 id="password"
                                 autoComplete="current-password"
                                 onChange={(e) => setPassword(e.target.value)}
-                                inputRef={register({ required: 'Password is required', minLength: { value: 6, message: 'Password should be atleast 6 characters' } })}
+                                inputRef={register}
                                 error={!!errors.password}
                                 helperText={errors?.password?.message}
                             />
-                                {errors.password && <span>{errors.password.message}</span>}
                         </Grid>
                         
                     </Grid>
