@@ -9,8 +9,18 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import Tooltip from '@material-ui/core/Tooltip';
 import Avatar from '@material-ui/core/Avatar';
+import Dialog from '@material-ui/core/Dialog';
 
 const useStyles = makeStyles( theme => ({
+    dialog: {
+        width: '100%',
+        height: '40rem',
+        margin: 'auto',
+        
+    },
+    card: {
+        objectFit: 'cover',
+    },
     gridContainer: {
         margin: 0,
         padding: 0,
@@ -58,7 +68,9 @@ const Profile = () => {
     const { state, dispatch } = useContext(UserContext)
     const [mypics, setMyPics] = useState([])
     const [image, setImage] = useState("")
-    const [status, setStatusBase] = useState("");
+    const [status, setStatusBase] = useState("")
+    const [modalImage, setModalImage] = useState("")
+    const [open, setOpen] = useState(false)
 
     useEffect(() => {
         fetch('/mypost', {
@@ -118,13 +130,29 @@ const Profile = () => {
         setStatusBase({ msg: "Photo updated", key: Math.random() });
     }
 
-    const clickImageHandler = () => {
-        alert('image modal shows up')
+    const clickImageHandler = (props) => {
+        // console.log(props)
+        setOpen(true);
+        setModalImage(props)
     }
 
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     return (
         <>
+
+                <Dialog
+                    open={open}
+                    className={classes.dialog}
+                    onClose={handleClose}
+                >
+                    <img src={modalImage} className={classes.card}/>
+                    
+                </Dialog>
+
+
                 <div style={{ 
                     display: "flex", 
                     flexDirection: 'row', 
@@ -172,7 +200,7 @@ const Profile = () => {
                     justify='start'>
 
                     {mypics.map(item => {
-                        console.log(mypics)
+                        // console.log(mypics)
                         return (
 
                         <Grid item xs={12} sm={6} md={4}>
@@ -190,7 +218,7 @@ const Profile = () => {
                                             component='img'
                                             className={classes.image}
                                             image={item.image}
-                                                onClick={() => clickImageHandler()}
+                                            onClick={() => clickImageHandler(item.image)}
                                         />
                                     }
                                     </Card>
