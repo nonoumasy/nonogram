@@ -1,47 +1,48 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import useForm from 'react-hook-form'
+import {useForm} from 'react-hook-form'
 import { UserContext} from '../../App'
-import AlertMassage from "../shared/AlertMessage"
 
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card'
-import Button from '@material-ui/core/Button'
-import InputAdornment from '@material-ui/core/InputAdornment';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import PersonIcon from '@material-ui/icons/Person';
-import LockIcon from '@material-ui/icons/Lock'; 
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    paper: {
+        marginTop: theme.spacing(8),
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-around',
-        height: 300,
-        maxWidth: 300,
-        margin: '30px auto',
-        padding: theme.spacing(6)
-    }, 
-    margin: {
-        // margin: theme.spacing(2),
-        
+        alignItems: 'center',
     },
-}))
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+}));
 
 const Login = () => {
     const classes = useStyles();
     const history = useHistory()
     const {state, dispatch} = useContext(UserContext)
-    const { register, handleSubmit, errors} = useForm()
+    const {register, handleSubmit, errors} = useForm()
 
-    const [password, setPassword] = useState('')
-    const [email, setEmail] = useState('')
-    const [status, setStatusBase] = useState("");
-    const [open, setOpen] = useState(false)
-
-    const postData = () => {
-
+    const postData = ({ email, password }) => {
         fetch('/login', {
             method: 'post',
             headers: {
@@ -51,82 +52,91 @@ const Login = () => {
                 email,
                 password
             })
-        }
-        )
+        })
             .then(res => res.json())
             .then(data => {
                 if (data.error) {
-                    setStatusBase({ msg: "Something went wrong", key: Math.random() })
+                    console.log(data.error)
                 } else {
                     localStorage.setItem('jwt', data.token)
                     localStorage.setItem('user', JSON.stringify(data.user))
                     dispatch({ type: 'USER', payload: data.user })
-                    setStatusBase({ msg: "Success", key: Math.random() });
                     history.push('/')
                 }
             })
             .catch(err => console.log(err))
     }
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpen(false);
-    }
-
     return (
-        <form onSubmit={} className={classes.root}>
-            <Typography variant='h6' align="center">
-                Login
+        <>
+    <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+                Sign in
             </Typography>
-
+                    <form className={classes.form} noValidate
+                        onSubmit={handleSubmit(postData)}>
             <TextField
-                className={classes.margin}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
                 type='email'
-                placeholder='Email'
-                fullWidth
-                onChange={(e) => setEmail(e.target.value)}
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <PersonIcon fontSize='small'/>
-                        </InputAdornment>
-                    ),
-                }}
+                name="email"
+                autoComplete="email"
+                autoFocus
+                inputRef={register}
             />
             <TextField
-                className={classes.margin}
+                variant="outlined"
+                margin="normal"
+                required
                 fullWidth
-                type='password'
-                placeholder='Password'
-                onChange={(e) => setPassword(e.target.value)}
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <LockIcon fontSize='small'/>
-                        </InputAdornment>
-                    ),
-                }}
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                inputRef={register}
             />
-            <Button 
-                variant='contained'  
-                onClick={() => postData()}
-                disableElevation
+            <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+            />
+            <Button
+                type="submit"
                 fullWidth
-                >
-                Login
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+            >
+                Sign In
             </Button>
-            <Typography align='center'>
-                <Link to='Signup'>Don't have an account?</Link>
-            </Typography>
+            <Grid container>
+                <Grid item xs>
+                    <Link inputRef="#" variant="body2">
+                        `Forgot password?
+                    </Link>
+                </Grid>
+                <Grid item>
+                    <Link to='Signup'>Don't have an account?</Link>
+                </Grid>
+            </Grid>
+            </form>
+            </div>
+            <Box mt={8}>
+                
+            </Box>
+    </Container>
 
-            {status ? <AlertMassage key={status.key} message={status.msg} /> : null}
-
-            
-        </form>
-
+        </>
     )
+    
 }
 
 export default Login
