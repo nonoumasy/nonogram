@@ -2,19 +2,27 @@ import React, {useState, useEffect} from 'react'
 import { Link, useHistory} from 'react-router-dom'
 import {useForm} from 'react-hook-form'
 import axios from 'axios'
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import '../../App.css'
+
+const schema = yup.object().shape({
+    email: yup
+        .string()
+        .email("Email should have correct format")
+        .required("Email is a required field"),
+});
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -44,7 +52,7 @@ const Signup = () => {
     const [email, setEmail] = useState('')
     const [image, setImage] = useState("")
     const [url, setUrl] = useState(undefined)
-    const {register, handleSubmit, errors} = useForm()
+    const { register, handleSubmit, errors } = useForm({ resolver: yupResolver(schema)})
 
     useEffect(() => {
         if (url) {
