@@ -49,7 +49,7 @@ const CreatePost = () => {
             
             // posting to database
             fetch("/create", {
-                method: "post",
+                method: "post",                
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + localStorage.getItem("jwt")
@@ -59,19 +59,17 @@ const CreatePost = () => {
                     body,
                     image: url
                 })
-            }).then(res => res.json())
+            })
+            .then(res => res.json())
             .then(data => {
-                    if (data.error) {
-                        setStatusBase({ msg: data.error, key: Math.random() })
-                    }
-                    else {
-                        setIsLoading(false)
-                        setStatusBase({ msg: "Created post Successfully", key: Math.random() })
-                        history.push('/')
-                    }
-                }).catch(err => {
-                    console.log(err)
+                if (data.error) {
+                    console.log(data.error)
+                }
+                else {
+                    history.push('/')
+                }
                 })
+            .catch(err => console.log(err))
         }
     }, [url])
 
@@ -86,7 +84,6 @@ const CreatePost = () => {
             if ((image.type === 'video/mp4') || (image.type === 'video/webm') || (image.type === 'video/ogg')) {
                 axios.post('https://api.cloudinary.com/v1_1/nonoumasy/video/upload', data)
                 .then(res => { 
-                    setStatusBase({ msg: "Created post Successfully", key: Math.random() })
                     setUrl(res.data.secure_url)
                 })
                 .catch(err => { 
@@ -97,13 +94,13 @@ const CreatePost = () => {
             if ((image.type === 'image/png') || (image.type === 'image/jpg') || (image.type === 'image/jpeg' || (image.type === 'image/gif') )) {
             axios.post('https://api.cloudinary.com/v1_1/nonoumasy/image/upload', data)
                 .then(res => {
-                    setStatusBase({ msg: "Created post Successfully", key: Math.random() })
                     setUrl(res.data.secure_url)
                 })
                 .catch(err => {
                     console.log('something went wrong', err)
                 }) 
             } 
+
 
     }
         
