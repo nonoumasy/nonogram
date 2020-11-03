@@ -44,9 +44,6 @@ const CreatePost = () => {
     const [open, setOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
-
-    console.log('title',title)
-
     useEffect(() => {
         if (url) {
             
