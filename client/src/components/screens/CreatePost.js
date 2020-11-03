@@ -9,6 +9,7 @@ import Card from '@material-ui/core/Card'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import '../../App.css'
 
@@ -22,6 +23,13 @@ const useStyles = makeStyles((theme) => ({
         margin: '30px auto',
         padding: theme.spacing(6)
     },
+    spinner: {
+        display: 'flex',
+        '& > * + *': {
+        },
+        justifyContent: 'center',
+        margin: '30px auto',
+    },
 }))
 
 const CreatePost = () => {
@@ -34,12 +42,14 @@ const CreatePost = () => {
     const [url, setUrl] = useState("")
     const [status, setStatusBase] = useState("");
     const [open, setOpen] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
 
     console.log('title',title)
 
     useEffect(() => {
         if (url) {
+            
             // posting to database
             fetch("/create", {
                 method: "post",
@@ -58,6 +68,7 @@ const CreatePost = () => {
                         setStatusBase({ msg: data.error, key: Math.random() })
                     }
                     else {
+                        setIsLoading(false)
                         setStatusBase({ msg: "Created post Successfully", key: Math.random() })
                         history.push('/')
                     }
@@ -68,7 +79,7 @@ const CreatePost = () => {
     }, [url])
 
     const postDetails = () => { 
-        
+        setIsLoading(true)
             const data = new FormData()
             data.append('file', image)
             data.append('upload_preset', 'nonogram')
@@ -109,6 +120,9 @@ const CreatePost = () => {
 
     return (
         <>
+            <div className={classes.spinner}>
+                {isLoading && <CircularProgress />}
+            </div>  
             <Card className={classes.root}>
                 <Typography variant='h6' align="center">
                     Add Post
@@ -152,9 +166,9 @@ const CreatePost = () => {
             </Button>
 
             </Card>
-            { status ? <AlertMassage key={status.key} message={status.msg} /> : null}      
-            </>
-        )
+            { status ? <AlertMassage key={status.key} message={status.msg} /> : null} 
+        </>
+    )
     
 }
 
