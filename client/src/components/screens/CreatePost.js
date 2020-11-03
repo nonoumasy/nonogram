@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         margin: '30px auto',
     },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
 }))
 
 const CreatePost = () => {
@@ -140,15 +143,21 @@ const CreatePost = () => {
                     fullWidth
                     onChange={(e) => setBody(e.target.value)}
                 />
-
-                <Button fullwidth>
-                    <input
-                        // multiple
-                        type="file"
-                        accept="video/*,image/*"
-                        onChange={(e) => setImage(e.target.files[0])}
-                    />
-                </Button>
+                <input
+                    accept="video/*,image/*"
+                    style={{ display: 'none' }}
+                    type="file"
+                    id="raised-button-file"
+                    onChange={(e) => setImage(e.target.files[0])}
+                />
+                <label htmlFor="raised-button-file">
+                    <Button
+                        variant="outlined"
+                        component="span"
+                        className={classes.submit}>
+                        Upload Image or Video
+                        </Button>
+                </label> 
 
                 <Button
                     variant='contained'
