@@ -51,8 +51,7 @@ const Login = () => {
                 email,
                 password
             })
-        })
-            .then(res => res.json())
+        }).then(res => res.json())
             .then(data => {
                 if (data.error) {
                     console.log(data.error)
