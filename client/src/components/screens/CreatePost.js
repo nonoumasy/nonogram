@@ -30,15 +30,12 @@ const CreatePost = () => {
 
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
-    const [image, setImage] = useState([])
+    const [image, setImage] = useState("")
     const [url, setUrl] = useState("")
     const [status, setStatusBase] = useState("");
     const [open, setOpen] = useState(false)
 
-    console.log('image', image)
-
     useEffect(() => {
-        
         if (url) {
             // posting to database
             fetch("/create", {
@@ -67,12 +64,8 @@ const CreatePost = () => {
         }
     }, [url])
 
-    const postDetails = () => {
-        console.log('image: ', image)
+    const postDetails = () => { 
             const data = new FormData()
-            
-        for (let i = 0; i < image.length; i++) {
-            let image = image[i];
             data.append('file', image)
             data.append('upload_preset', 'nonogram')
             data.append('cloud_name', 'nonoumasy')
@@ -89,9 +82,8 @@ const CreatePost = () => {
                 .catch(err => { 
                     console.log('something went wrong', err)
             }) 
-        } 
-        if
-            ((image.type === 'image/png') || (image.type === 'image/jpg') || (image.type === 'image/jpeg' || (image.type === 'image/gif') )) {
+            } 
+            if ((image.type === 'image/png') || (image.type === 'image/jpg') || (image.type === 'image/jpeg' || (image.type === 'image/gif') )) {
             axios.post('https://api.cloudinary.com/v1_1/nonoumasy/image/upload', data)
                 .then(res => {
                     setStatusBase({ msg: "Created post Successfully", key: Math.random() })
@@ -101,8 +93,9 @@ const CreatePost = () => {
                 .catch(err => {
                     console.log('something went wrong', err)
                 }) 
-        } 
-    }}
+            } 
+        }
+        
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -111,55 +104,54 @@ const CreatePost = () => {
         setOpen(false);
     }
 
-        
     return (
         <>
-        <Card className={classes.root}>
-            <Typography variant='h6' align="center">
-                Add Post
-            </Typography>
+            <Card className={classes.root}>
+                <Typography variant='h6' align="center">
+                    Add Post
+                </Typography>
 
-            <TextField
-                label='Title'
-                type='text'
-                placeholder='title'
-                value={title}
-                fullWidth
-                onChange={(e) => setTitle([e.target.value])}
-            />
-
-            <TextField
-                    rows={4}
-                    label="Tell us a story"
-                    multiline
-                    placeholder='Once a upon a time...'
-                    value={body}
+                <TextField
+                    label='Title'
+                    type='text'
+                    placeholder='title'
+                    value={title}
                     fullWidth
-                    onChange={(e) => setBody(e.target.value)}
-                    
+                    onChange={(e) => setTitle([e.target.value])}
                 />
 
-            <Button fullwidth>
-                <input
-                    multiple
-                    type="file"
-                    accept="video/*,image/*"
-                    onChange={(e) => setImage(e.target.files)}
-                />
-            </Button>
+                <TextField
+                        rows={4}
+                        label="Tell us a story"
+                        multiline
+                        placeholder='Once a upon a time...'
+                        value={body}
+                        fullWidth
+                        onChange={(e) => setBody(e.target.value)}
+                        
+                    />
 
-            <Button
-                variant='contained'
-                disableElevation
-                fullWidth
-                type='submit'
-                onClick={() => postDetails()}>
-                Submit Post
-            </Button>
-            
-        </Card>
-        { status ? <AlertMassage key={status.key} message={status.msg} /> : null }
-        </>
+                <Button fullwidth>
+                    <input
+                        // multiple
+                        type="file"
+                        accept="video/*,image/*"
+                        onChange={(e) => setImage(e.target.files[0])}
+                    />
+                </Button>
+
+                <Button
+                    variant='contained'
+                    disableElevation
+                    fullWidth
+                    type='submit'
+                    onClick={() => postDetails()}>
+                    Submit Post
+                </Button>
+
+            </Card>
+            { status ? <AlertMassage key={status.key} message={status.msg} /> : null }
+            </>
         )
     
 }
