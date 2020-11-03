@@ -192,19 +192,19 @@ const Home = ({props}) => {
                             />
                             <div style={{ marginRight: '2rem' }}></div>
                             { item.image.includes('video') ?
-                                    <CardMedia
-                                        component='video'
-                                        controls
-                                        className={classes.media}
-                                        image={item.image}
-                                        type="*"
-                                    />
-                                    :
-                                    <CardMedia
-                                        className={classes.media}
-                                        component='img'
-                                        image={item.image}
-                                    />
+                                <CardMedia
+                                    component='video'
+                                    controls
+                                    className={classes.media}
+                                    image={item.image}
+                                    type="*"
+                                />
+                                :
+                                <CardMedia
+                                    className={classes.media}
+                                    component='img'
+                                    image={item.image}
+                                />
                             }
                             
                             <CardContent>
