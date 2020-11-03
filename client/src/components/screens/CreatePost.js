@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: 400,
         margin: '30px auto',
         padding: theme.spacing(6)
-    }
+    },
 }))
 
 const CreatePost = () => {
@@ -34,6 +34,9 @@ const CreatePost = () => {
     const [url, setUrl] = useState("")
     const [status, setStatusBase] = useState("");
     const [open, setOpen] = useState(false)
+
+
+    console.log('title',title)
 
     useEffect(() => {
         if (url) {
@@ -65,6 +68,7 @@ const CreatePost = () => {
     }, [url])
 
     const postDetails = () => { 
+        
             const data = new FormData()
             data.append('file', image)
             data.append('upload_preset', 'nonogram')
@@ -73,28 +77,27 @@ const CreatePost = () => {
             // posting to cloudinary 
             if ((image.type === 'video/mp4') || (image.type === 'video/webm') || (image.type === 'video/ogg')) {
                 axios.post('https://api.cloudinary.com/v1_1/nonoumasy/video/upload', data)
-        
                 .then(res => { 
                     setStatusBase({ msg: "Created post Successfully", key: Math.random() })
                     setUrl(res.data.secure_url)
-                }
-                    )
+                })
                 .catch(err => { 
                     console.log('something went wrong', err)
-            }) 
+                }) 
             } 
+
             if ((image.type === 'image/png') || (image.type === 'image/jpg') || (image.type === 'image/jpeg' || (image.type === 'image/gif') )) {
             axios.post('https://api.cloudinary.com/v1_1/nonoumasy/image/upload', data)
                 .then(res => {
                     setStatusBase({ msg: "Created post Successfully", key: Math.random() })
                     setUrl(res.data.secure_url)
-                }
-                )
+                })
                 .catch(err => {
                     console.log('something went wrong', err)
                 }) 
             } 
-        }
+
+    }
         
 
     const handleClose = (event, reason) => {
@@ -109,7 +112,7 @@ const CreatePost = () => {
             <Card className={classes.root}>
                 <Typography variant='h6' align="center">
                     Add Post
-                </Typography>
+            </Typography>
 
                 <TextField
                     label='Title'
@@ -117,19 +120,18 @@ const CreatePost = () => {
                     placeholder='title'
                     value={title}
                     fullWidth
-                    onChange={(e) => setTitle([e.target.value])}
+                    onChange={(e) => setTitle(e.target.value)}
                 />
 
                 <TextField
-                        rows={4}
-                        label="Tell us a story"
-                        multiline
-                        placeholder='Once a upon a time...'
-                        value={body}
-                        fullWidth
-                        onChange={(e) => setBody(e.target.value)}
-                        
-                    />
+                    rows={4}
+                    label="Tell us a story"
+                    multiline
+                    placeholder='Once a upon a time...'
+                    value={body}
+                    fullWidth
+                    onChange={(e) => setBody(e.target.value)}
+                />
 
                 <Button fullwidth>
                     <input
@@ -147,10 +149,10 @@ const CreatePost = () => {
                     type='submit'
                     onClick={() => postDetails()}>
                     Submit Post
-                </Button>
+            </Button>
 
             </Card>
-            { status ? <AlertMassage key={status.key} message={status.msg} /> : null }
+            { status ? <AlertMassage key={status.key} message={status.msg} /> : null}      
             </>
         )
     
