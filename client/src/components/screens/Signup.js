@@ -184,10 +184,10 @@ const Signup = () => {
                     />
                     <label htmlFor="raised-button-file">
                         <Button 
-                        variant="contained" 
+                        variant="outlined" 
                         component="span" 
                         className={classes.submit}>
-                            Upload Photo
+                            Upload Profile Photo
                         </Button>
                     </label> 
 
