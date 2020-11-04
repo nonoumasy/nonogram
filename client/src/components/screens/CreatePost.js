@@ -164,6 +164,7 @@ const CreatePost = () => {
                     disableElevation
                     fullWidth
                     type='submit'
+                    color='primary'
                     onClick={() => postDetails()}>
                     Submit Post
             </Button>
