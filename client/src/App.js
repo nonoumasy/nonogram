@@ -12,6 +12,18 @@ import SubscribedUserPosts from './components/screens/SubscribedUserPosts'
 import {reducer, initialState} from './reducers/userReducer'
 
 import Container from '@material-ui/core/Container';
+import { ThemeProvider, makeStyles, createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#111111',
+    },
+    secondary: {
+      main: '#666666',
+    },
+  },
+});
 
 export const UserContext = createContext()
 
@@ -33,6 +45,7 @@ function App() {
 
   return (
     <>
+    <ThemeProvider theme={theme}>
       <UserContext.Provider value={{state, dispatch}}>
         <Container maxWidth='md' style={{ margin: '2rem auto'}}> 
           <Navbar/>
@@ -60,6 +73,7 @@ function App() {
         <Footer />
         </Container >
       </UserContext.Provider>
+      </ThemeProvider>
     </>
   )
 }
