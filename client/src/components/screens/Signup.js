@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 import '../../App.css'
 
@@ -184,7 +185,8 @@ const Signup = () => {
                     />
                     <label htmlFor="raised-button-file">
                         <Button 
-                        variant="outlined" 
+                        startIcon={<AccountBoxIcon/>}
+                        variant="contained" 
                         component="span" 
                         className={classes.submit}>
                             Upload Profile Photo
